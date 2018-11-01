@@ -4,7 +4,15 @@
 
 export const environment = {
     production: false,
-    hmr       : false
+    hmr       : false,
+    firebase: {
+        apiKey: "AIzaSyBMkH2FRpb-IlLFjP5msJ2zQX0X1JqTCGU",
+        authDomain: "wodpod-f2086.firebaseapp.com",
+        databaseURL: "https://wodpod-f2086.firebaseio.com/",
+        projectId: "wodpod-f2086",
+        storageBucket: "gs://wodpod-f2086.appspot.com",
+        messagingSenderId: ""
+      }
 };
 
 /*

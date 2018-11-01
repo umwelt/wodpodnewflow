@@ -1,5 +1,7 @@
 @import "src/@fuse/scss/fuse";
-
+.manualWidth{
+    width: 212px !important;
+}
 toolbar {
     position: relative;
     display: flex;

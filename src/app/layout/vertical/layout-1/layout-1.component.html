@@ -1,15 +1,15 @@
 <!-- SIDE PANEL -->
-<ng-container *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'left'">
+<!-- <ng-container *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'left'"> -->
 
     <!-- CHAT PANEL -->
-    <fuse-sidebar name="chatPanel" position="left" class="chat-panel left-chat-panel"
+    <!-- <fuse-sidebar name="chatPanel" position="left" class="chat-panel left-chat-panel"
                   [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"
                   lockedOpen="gt-md">
         <chat-panel></chat-panel>
-    </fuse-sidebar>
+    </fuse-sidebar> -->
     <!-- / CHAT PANEL -->
 
-</ng-container>
+<!-- </ng-container> -->
 <!-- / SIDE PANEL -->
 
 <div id="main">
@@ -50,55 +50,55 @@
                 <!-- / CONTENT -->
 
                 <!-- FOOTER: Below static -->
-                <ng-container *ngIf="fuseConfig.layout.footer.position === 'below-static'">
+                <!-- <ng-container *ngIf="fuseConfig.layout.footer.position === 'below-static'">
                     <ng-container *ngTemplateOutlet="footer"></ng-container>
-                </ng-container>
+                </ng-container> -->
                 <!-- / FOOTER: Below static -->
 
             </div>
 
             <!-- FOOTER: Below fixed -->
-            <ng-container *ngIf="fuseConfig.layout.footer.position === 'below-fixed'">
+            <!-- <ng-container *ngIf="fuseConfig.layout.footer.position === 'below-fixed'">
                 <ng-container *ngTemplateOutlet="footer"></ng-container>
-            </ng-container>
+            </ng-container> -->
             <!-- / FOOTER: Below fixed -->
 
         </div>
 
         <!-- NAVBAR: Right -->
-        <ng-container *ngIf="fuseConfig.layout.navbar.position === 'right'">
+        <!-- <ng-container *ngIf="fuseConfig.layout.navbar.position === 'right'">
             <ng-container *ngTemplateOutlet="rightNavbar"></ng-container>
-        </ng-container>
+        </ng-container> -->
         <!-- / NAVBAR: Right -->
 
     </div>
 
     <!-- FOOTER: Above -->
-    <ng-container *ngIf="fuseConfig.layout.footer.position === 'above'">
+    <!-- <ng-container *ngIf="fuseConfig.layout.footer.position === 'above'">
         <ng-container *ngTemplateOutlet="footer"></ng-container>
-    </ng-container>
+    </ng-container> -->
     <!-- FOOTER: Above -->
 
 </div>
 
 <!-- SIDE PANEL -->
-<ng-container *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'right'">
+<!-- <ng-container *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'right'"> -->
 
     <!-- CHAT PANEL -->
-    <fuse-sidebar name="chatPanel" position="right" class="chat-panel right-chat-panel"
+    <!-- <fuse-sidebar name="chatPanel" position="right" class="chat-panel right-chat-panel"
                   [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"
                   lockedOpen="gt-md">
         <chat-panel></chat-panel>
-    </fuse-sidebar>
+    </fuse-sidebar> -->
     <!-- / CHAT PANEL -->
 
-</ng-container>
+<!-- </ng-container> -->
 <!-- / SIDE PANEL -->
 
 <!-- QUICK PANEL -->
-<fuse-sidebar name="quickPanel" position="right" class="quick-panel">
+<!-- <fuse-sidebar name="quickPanel" position="right" class="quick-panel">
     <quick-panel></quick-panel>
-</fuse-sidebar>
+</fuse-sidebar> -->
 <!-- / QUICK PANEL -->
 
 <!-- ----------------------------------------------------------------------------------------------------- -->
@@ -114,14 +114,14 @@
 <!-- / TOOLBAR -->
 
 <!-- FOOTER -->
-<ng-template #footer>
+<!-- <ng-template #footer>
     <footer *ngIf="!fuseConfig.layout.footer.hidden"
             [ngClass]="fuseConfig.layout.footer.customBackgroundColor === true ? fuseConfig.layout.footer.position + ' ' + fuseConfig.layout.footer.background : fuseConfig.layout.footer.position">
     </footer>
-</ng-template>
+</ng-template> -->
 <!-- / FOOTER -->
 
-<!-- LEFT NAVBAR -->
+<!-- LEFT NAVBAR sidebar mate-->
 <ng-template #leftNavbar>
     <fuse-sidebar name="navbar" class="navbar-fuse-sidebar"
                   [folded]="fuseConfig.layout.navbar.folded"
@@ -133,12 +133,12 @@
 <!-- / LEFT NAVBAR -->
 
 <!-- RIGHT NAVBAR -->
-<ng-template #rightNavbar>
+<!-- <ng-template #rightNavbar>
     <fuse-sidebar name="navbar" position="right" class="navbar-fuse-sidebar"
                   [folded]="fuseConfig.layout.navbar.folded"
                   lockedOpen="gt-md"
                   *ngIf="!fuseConfig.layout.navbar.hidden">
         <navbar [variant]="fuseConfig.layout.navbar.variant" class="right-navbar"></navbar>
     </fuse-sidebar>
-</ng-template>
+</ng-template> -->
 <!-- / RIGHT NAVBAR -->

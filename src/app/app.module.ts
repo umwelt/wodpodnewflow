@@ -19,11 +19,16 @@ import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
+import { MovementsModule } from "app/main/movements/movements.module";
 
 const appRoutes: Routes = [
     {
         path        : 'apps',
         loadChildren: './main/apps/apps.module#AppsModule'
+    },
+    {
+        path        : 'movements',
+        loadChildren: './main/movements/movements.module#MovementsModule'
     },
     {
         path        : 'pages',
@@ -43,7 +48,7 @@ const appRoutes: Routes = [
     },
     {
         path      : '**',
-        redirectTo: 'apps/dashboards/analytics'
+        redirectTo: 'pages/auth/login'
     }
 ];
 

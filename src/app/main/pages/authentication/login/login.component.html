@@ -47,13 +47,13 @@
                 </div>
 
                 <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
-                        [disabled]="loginForm.invalid">
+                        [disabled]="loginForm.invalid" (click)="firelogin()">
                     LOGIN
                 </button>
 
             </form>
 
-            <div class="separator">
+            <!-- <div class="separator">
                 <span class="text">OR</span>
             </div>
 
@@ -63,7 +63,7 @@
 
             <button mat-raised-button class="facebook">
                 Log in with Facebook
-            </button>
+            </button> -->
 
             <div class="register" fxLayout="column" fxLayoutAlign="center center">
                 <span class="text">Don't have an account?</span>
