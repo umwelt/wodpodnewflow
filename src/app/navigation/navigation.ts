@@ -166,18 +166,18 @@ export const navigation: FuseNavigation[] = [
                 type     : 'collapsable',
                 icon     : 'dashboard',
                 children : [
-                    {
-                        id   : 'movement',
-                        title: 'All Movements',
-                        type : 'item',
-                        url  : '/movements/'
-                    }
                     // {
-                    //     id   : 'muscles',
-                    //     title: 'Muscles',
+                    //     id   : 'movement',
+                    //     title: 'All Movements',
                     //     type : 'item',
-                    //     url  : '/tester/newtest/'
-                    // }
+                    //     url  : '/movements/'
+                    // },
+                    {
+                        id   : 'muscles',
+                        title: 'Muscles',
+                        type : 'item',
+                        url  : '/movements/muscles'
+                    }
                 ]
             }
         ]

@@ -20,6 +20,11 @@ import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
 import { MovementsModule } from "app/main/movements/movements.module";
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
 
 const appRoutes: Routes = [
     {
@@ -84,7 +89,11 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        AppStoreModule
+        AppStoreModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        AngularFireAuthModule,
+        AngularFireDatabaseModule
     ],
     bootstrap   : [
         AppComponent
