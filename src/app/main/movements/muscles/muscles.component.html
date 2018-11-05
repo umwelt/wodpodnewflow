@@ -48,8 +48,8 @@
             <td mat-cell *matCellDef="let row">
               <!-- <button mat-raised-button color="accent" (click)="editMuscle(row)" style="margin-right:2%;">Edit</button>
               <button mat-raised-button color="warn" (click)="removeMuscle(row)">Remove</button> -->
-              <mat-icon class="editBtn" (click)="editMuscle(row)">edit</mat-icon>
-              <mat-icon class="deleteBtn" (click)="removeMuscle(row)">delete_forever</mat-icon>
+              <mat-icon class="editBtn" title="Edit" (click)="editMuscle(row)">edit</mat-icon>
+              <mat-icon class="deleteBtn" title="Delete" (click)="removeMuscle(row)">delete_forever</mat-icon>
             </td>
           </ng-container>
 
