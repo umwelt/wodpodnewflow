@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatPaginator, MatSort, MatFormFieldControl, MatFormField } from '@angular/material';
+import { MatPaginator, MatSort, MatFormFieldControl, MatFormField, MatIcon } from '@angular/material';
 import { MusclesDataSource } from './muscles-datasource';
 import { fuseAnimations } from '@fuse/animations';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
@@ -18,8 +18,8 @@ export class MusclesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MusclesDataSource;
-  showCard = false;
-  form: FormGroup;
+  showCard = false;isEditMode=false;
+  form: FormGroup;Modelref;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name', 'action'];
 
@@ -31,7 +31,36 @@ export class MusclesComponent implements OnInit {
     this.dataSource = new MusclesDataSource(this.paginator, this.sort, this.firebase);
   }
   addMuscle() {
-    debugger
-    this.firebase.collection('/muscles_bank').add({ name: this.form.controls['name'].value });
+    this.showCard=false;
+    if(!this.isEditMode){
+      this.firebase.collection('/muscles_bank').add({ name: this.form.controls['name'].value });
+      this.dataSource = new MusclesDataSource(this.paginator, this.sort, this.firebase);
+      // this.form.controls['name'].patchValue('');
+      this.ngOnInit();
+    }else{
+      this.Modelref.update({name:this.form.controls['name'].value});
+      this.dataSource = new MusclesDataSource(this.paginator, this.sort, this.firebase);
+      // this.form.controls['name'].patchValue('');
+      this.ngOnInit();
+    }
+  }
+  editMuscle(row){
+    this.Modelref=this.firebase.doc(`muscles_bank/${row.id}`);
+    this.Modelref.get().subscribe(res=>{
+      let gotData=res.data();
+      this.form.controls['name'].patchValue(gotData.name);
+      this.isEditMode=true;
+      this.showCard=true;
+    });
+  }
+  getbyId(row){
+    this.firebase.doc(`muscles_bank/${row.id}`).get().subscribe(res=>{
+      let gotData=res.data();
+      this.form.controls['name'].patchValue(gotData.name);
+    });
+  }
+  removeMuscle(row){
+    this.firebase.doc(`muscles_bank/${row.id}`).delete();
+    this.dataSource = new MusclesDataSource(this.paginator, this.sort, this.firebase);
   }
 }
