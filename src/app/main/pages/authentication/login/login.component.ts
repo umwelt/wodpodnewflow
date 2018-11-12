@@ -6,7 +6,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Router } from "@angular/router";
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'login',
     templateUrl: './login.component.html',
@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
         private _formBuilder: FormBuilder,
         public afAuth: AngularFireAuth,
         public route: Router,
-        public snack: MatSnackBar
+        public snack: MatSnackBar,
+        public toastr:ToastrService
     ) {
         // Configure the layout
         this._fuseConfigService.config = {
@@ -67,18 +68,20 @@ export class LoginComponent implements OnInit {
         this.afAuth.auth.signInWithEmailAndPassword(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
             .then((doc) => {
                 console.log(doc);
-                this.snack.open('User Login Successfully!', 'Success!', {
-                    duration: 3000,
-                });
+                this.toastr.success('User Login Successfully!', 'Success!');
+                // this.snack.open('User Login Successfully!', 'Success!', {
+                //     duration: 3000,
+                // });
                 localStorage.setItem('fireToken',JSON.stringify(doc));
                 setTimeout(() => {
                     this.route.navigate(['/apps/dashboards/analytics']);
-                },1200);
+                },800);
             }).catch((er) => {
                 console.log(er);
-                this.snack.open(er.message, er.code, {
-                    duration: 5000,
-                });
+                this.toastr.error(er.message, 'Error!');                
+                // this.snack.open(er.message, er.code, {
+                //     duration: 5000,
+                // });
             })
     }
 }

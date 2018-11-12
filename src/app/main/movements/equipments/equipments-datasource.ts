@@ -7,23 +7,23 @@ import { AngularFirestore } from "angularfire2/firestore";
 import { element } from 'protractor';
 
 // TODO: Replace this with your own data model type
-export interface MusclesItem {
+export interface EquipmentsItem {
   name: string;
   id: number;
 }
 
 /**
- * Data source for the Muscles view. This class should
+ * Data source for the Equipments view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class MusclesDataSource extends DataSource<MusclesItem> {
-  data: MusclesItem[];
+export class EquipmentsDataSource extends DataSource<EquipmentsItem> {
+  data: EquipmentsItem[];
   constructor(private paginator: MatPaginator, private sort: MatSort, private af: AngularFirestore) {
     super();
-    var xss = this.af.collection('/muscles_bank').snapshotChanges().pipe(
+    var xss = this.af.collection('/equipment_bank').snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as MusclesItem;
+        const data = a.payload.doc.data() as EquipmentsItem;
         const id = a.payload.doc.id;
         return { id, ...data };
       })));
@@ -38,7 +38,7 @@ export class MusclesDataSource extends DataSource<MusclesItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<MusclesItem[]> {
+  connect(): Observable<EquipmentsItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     if (this.paginator.page) {
@@ -66,7 +66,7 @@ export class MusclesDataSource extends DataSource<MusclesItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: MusclesItem[]) {
+  private getPagedData(data: EquipmentsItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -75,7 +75,7 @@ export class MusclesDataSource extends DataSource<MusclesItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: MusclesItem[]) {
+  private getSortedData(data: EquipmentsItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

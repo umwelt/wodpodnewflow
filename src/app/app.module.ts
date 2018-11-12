@@ -25,6 +25,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { ToastrModule } from 'ngx-toastr';
 
 const appRoutes: Routes = [
     {
@@ -86,7 +87,7 @@ const appRoutes: Routes = [
         FuseSharedModule,
         FuseSidebarModule,
         FuseThemeOptionsModule,
-
+        ToastrModule.forRoot(),
         // App modules
         LayoutModule,
         AppStoreModule,

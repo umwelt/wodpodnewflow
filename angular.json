@@ -28,7 +28,8 @@
                             "src/app/main/angular-material-elements"
                         ],
                         "styles": [
-                            "src/styles.scss"
+                            "src/styles.scss",
+                            "./node_modules/ngx-toastr/toastr.css"
                         ],
                         "scripts": [],
                         "showCircularDependencies": false

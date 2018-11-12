@@ -58,10 +58,12 @@
     "ngrx-store-freeze": "0.2.4",
     "ngx-color-picker": "6.7.0",
     "ngx-cookie-service": "1.0.10",
+    "ngx-toastr": "9.1.1",
     "perfect-scrollbar": "1.4.0",
     "prismjs": "1.15.0",
     "rxjs": "6.3.3",
     "rxjs-compat": "6.3.3",
+    "sweetalert2": "7.28.11",
     "web-animations-js": "2.3.1",
     "zone.js": "0.8.26"
   },

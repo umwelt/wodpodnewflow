@@ -177,6 +177,12 @@ export const navigation: FuseNavigation[] = [
                         title: 'Muscles',
                         type : 'item',
                         url  : '/movements/muscles'
+                    },
+                    {
+                        id   : 'equipments',
+                        title: 'Equipments',
+                        type : 'item',
+                        url  : '/movements/equipments'
                     }
                 ]
             }

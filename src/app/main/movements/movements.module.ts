@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FuseSharedModule } from '@fuse/shared.module';
 import { EquipmentsComponent } from './equipments/equipments.component';
 import { MusclesComponent } from './muscles/muscles.component';
-import { MatTableModule, MatPaginatorModule,MatIconModule, MatSortModule,MatInputModule,MatSelectModule, MatButtonModule,MatFormFieldModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule,MatIconModule, MatSortModule,MatInputModule,MatSelectModule, MatButtonModule,MatFormFieldModule,MatDialogModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -21,6 +21,10 @@ const routes = [
   {
     path: 'muscles',
     component: MusclesComponent
+  },
+  {
+    path: 'equipments',
+    component: EquipmentsComponent
   }
 ]
 @NgModule({
@@ -32,6 +36,7 @@ const routes = [
     MatPaginatorModule,
     MatButtonModule,
     MatSortModule,
+    MatDialogModule,
     MatInputModule,
     MatIconModule,
     MatSelectModule,
