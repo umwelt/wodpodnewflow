@@ -161,17 +161,17 @@ export const navigation: FuseNavigation[] = [
             //     url      : '/apps/scrumboard'
             // },
             {
-                id       : 'movements',
+                id       : 'movement',
                 title    : 'Movements',
                 type     : 'collapsable',
                 icon     : 'dashboard',
                 children : [
-                    // {
-                    //     id   : 'movement',
-                    //     title: 'All Movements',
-                    //     type : 'item',
-                    //     url  : '/movements/'
-                    // },
+                    {
+                        id   : 'movements',
+                        title: 'All Movements',
+                        type : 'item',
+                        url  : '/movements/listing'
+                    },
                     {
                         id   : 'muscles',
                         title: 'Muscles',
