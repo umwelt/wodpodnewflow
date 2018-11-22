@@ -37,6 +37,8 @@ export class MovementComponent implements OnInit {
       double_weight: [false],
       cardio: [false],
       type: ['', Validators.required],
+      reps: [0,[Validators.min(1)]],
+      time:[0,[Validators.min(1)]],
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
     });
   }

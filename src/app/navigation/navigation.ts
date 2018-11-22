@@ -185,6 +185,20 @@ export const navigation: FuseNavigation[] = [
                         url  : '/movements/equipments'
                     }
                 ]
+            },
+            {
+                id       : 'wods',
+                title    : 'Wods',
+                type     : 'collapsable',
+                icon     : 'dashboard',
+                children : [
+                    {
+                        id   : 'allwods',
+                        title: 'All Wods',
+                        type : 'item',
+                        url  : '/wods/listing'
+                    }
+                ]
             }
         ]
     },
