@@ -30,7 +30,7 @@
               </label>
               <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
                 <mat-form-field appearance="outline" fxFlex="100">
-                  <mat-select placeholder="Movements Description" formControlName="name">
+                  <mat-select (selectionChange)="onChange($event.value)" placeholder="Movements Description" formControlName="name" [compareWith]="compareFn">
                     <mat-option *ngFor="let move of movements" [value]="move">{{move.display_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>

@@ -30,7 +30,7 @@ export class WodsComponent implements OnInit {
     }
     this.form = this._formBuilder.group({
       name: ['', Validators.required],
-      movements_description:this._formBuilder.array([this.createItems()]),
+      movements_description: this._formBuilder.array([this.createItems()]),
       // movements_description: [[], Validators.required],
       type: [[], Validators.required],
       category: [[], Validators.required],
@@ -42,27 +42,27 @@ export class WodsComponent implements OnInit {
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
     });
   }
-  createItems():FormGroup{
+  createItems(): FormGroup {
     return this._formBuilder.group({
-      name:['',Validators.required],
-      reps:[0,[Validators.min(1), Validators.max(5)]]
+      name: ['', Validators.required],
+      reps: [0, [Validators.min(1), Validators.max(5)]]
     })
   }
-  addItems(){
+  addItems() {
     (<FormArray>this.form.get('movements_description')).push(this.createItems());
   }
-  removeItems(i){
-    const md=<FormArray>this.form.controls['movements_description'];
+  removeItems(i) {
+    const md = <FormArray>this.form.controls['movements_description'];
     md.removeAt(i);
   }
   onChange(rowdata) {
     this.sets = [];
     this.moves = [];
-      this.form.controls['movements_description'].value.forEach(element => {
-        this.moves.push({name:element.name.display_name,reps:element.reps});
-        // this.sets.push(element.name);
-      });
-      // this.form.controls['movements_description'].patchValue(this.moves);
+    this.form.controls['movements_description'].value.forEach(element => {
+      this.moves.push({ name: element.name.display_name, reps: element.reps });
+      this.sets.push(element.name);
+    });
+    this.form.controls['movements_description'].patchValue(this.moves);
   }
   addWods() {
     this.form.controls['movements_description'].patchValue(this.moves);
@@ -83,8 +83,11 @@ export class WodsComponent implements OnInit {
     this.Modelref.get().subscribe(res => {
       let gotData = res.data();
       this.form.patchValue(gotData.info);
-      this.onChange(gotData.sets);
-      this.form.controls['movements_description'].patchValue(gotData.sets);
+      let temp = [];
+      gotData.sets.forEach((ele, idx) => {        
+        temp.push({ name: ele, reps: gotData.info.movements_description[idx].reps });
+      });
+      this.form.controls['movements_description'].patchValue(temp);
     });
   }
   updateWods() {
