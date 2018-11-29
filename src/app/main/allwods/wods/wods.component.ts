@@ -4,7 +4,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFirestore } from "angularfire2/firestore";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
@@ -30,7 +30,8 @@ export class WodsComponent implements OnInit {
     }
     this.form = this._formBuilder.group({
       name: ['', Validators.required],
-      movements_description: [[], Validators.required],
+      movements_description:this._formBuilder.array([this.createItems()]),
+      // movements_description: [[], Validators.required],
       type: [[], Validators.required],
       category: [[], Validators.required],
       attempted: [false],
@@ -41,12 +42,27 @@ export class WodsComponent implements OnInit {
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
     });
   }
+  createItems():FormGroup{
+    return this._formBuilder.group({
+      name:['',Validators.required],
+      reps:[0,[Validators.min(1), Validators.max(5)]]
+    })
+  }
+  addItems(){
+    (<FormArray>this.form.get('movements_description')).push(this.createItems());
+  }
+  removeItems(i){
+    const md=<FormArray>this.form.controls['movements_description'];
+    md.removeAt(i);
+  }
   onChange(rowdata) {
-    this.sets = rowdata;
+    this.sets = [];
     this.moves = [];
-    rowdata.forEach(element => {
-      this.moves.push(element.display_name);
-    });
+      this.form.controls['movements_description'].value.forEach(element => {
+        this.moves.push({name:element.name.display_name,reps:element.reps});
+        // this.sets.push(element.name);
+      });
+      // this.form.controls['movements_description'].patchValue(this.moves);
   }
   addWods() {
     this.form.controls['movements_description'].patchValue(this.moves);

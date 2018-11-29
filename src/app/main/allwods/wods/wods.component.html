@@ -1,35 +1,60 @@
 <div id="wods" class="page-layout carded fullwidth inner-scroll">
-
   <!-- CENTER -->
   <div class="center">
     <div class="mb-24 UiSetter" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
       <form class="mat-card mat-elevation-z4 p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form"
         [formGroup]="form">
-        <div class="h2 mb-24">Wods</div>        
+        <div class="h2 mb-24">Wods</div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name">
           </mat-form-field>
         </div>
-        
-        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
-            <mat-select (selectionChange)="onChange($event.value)" placeholder="Movements Description" formControlName="movements_description" multiple [compareWith]="compareFn">
+            <mat-select (selectionChange)="onChange($event.value)" placeholder="Movements Description" formControlName="movements_description"
+              multiple [compareWith]="compareFn">
               <mat-option *ngFor="let move of movements" [value]="move">{{move.display_name}}</mat-option>
             </mat-select>
           </mat-form-field>
+        </div> -->
+
+        <div formArrayName="movements_description" *ngFor="let movements_description of form.get('movements_description').controls; let i = index"
+          class="form-group">
+          <div [formGroupName]="i">
+            <div class="form-group" class="row cols-md-12">
+              <label class="col-sm-2 control-label" for="movements">
+                Movements
+              </label>
+              <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field appearance="outline" fxFlex="100">
+                  <mat-select placeholder="Movements Description" formControlName="name">
+                    <mat-option *ngFor="let move of movements" [value]="move">{{move.display_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field appearance="outline" fxFlex="100">
+                  <mat-label>Reps</mat-label>
+                  <input type="number" matInput formControlName="reps">
+                </mat-form-field>
+              </div>
+              <mat-icon class="deleteBtn" *ngIf="i>0" title="Delete" (click)="removeItems(i)">delete_forever</mat-icon>
+            </div>
+          </div>
         </div>
-        
+        <a mat-fab color="primary" style="font-size:large;" (click)="addItems()">+</a>
         <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field class="example-full-width">
             <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="movements_description" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete" multiple>
                 <mat-option *ngFor="let move of movements" [value]="move">{{move.display_name}}</mat-option> -->
-              <!-- <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        <!-- <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                 {{option}}
               </mat-option> -->
-            <!-- </mat-autocomplete>
+        <!-- </mat-autocomplete>
           </mat-form-field>
         </div> -->
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
@@ -46,7 +71,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        
+
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>Intensity</mat-label>
@@ -72,19 +97,20 @@
           </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-            <mat-form-field appearance="outline" fxFlex="100">
-              <mat-label>Ghosts</mat-label>
-              <input type="number" matInput formControlName="ghost">
-            </mat-form-field>
-          </div>
-          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-            <mat-form-field appearance="outline" fxFlex="100">
-              <mat-label>Rounds</mat-label>
-              <input type="number" matInput formControlName="rounds">
-            </mat-form-field>
-          </div>
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Ghosts</mat-label>
+            <input type="number" matInput formControlName="ghost">
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Rounds</mat-label>
+            <input type="number" matInput formControlName="rounds">
+          </mat-form-field>
+        </div>
 
-        <button mat-raised-button color="accent" class="submit-button" aria-label="Save" [disabled]="form.invalid" (click)="saveWods()">
+        <button mat-raised-button color="accent" class="submit-button" aria-label="Save" [disabled]="form.invalid"
+          (click)="saveWods()">
           Save
         </button>
       </form>
