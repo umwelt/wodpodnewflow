@@ -21,31 +21,33 @@
           </mat-form-field>
         </div> -->
 
-        <div formArrayName="movements_description" *ngFor="let movements_description of form.get('movements_description').controls; let i = index"
+        <div formArrayName="movements_description" *ngFor="let movements_description of form.get('movements_description')['controls']; let i = index"
           class="form-group">
           <div [formGroupName]="i">
             <div class="form-group" class="row cols-md-12">
-              <label class="col-sm-2 control-label" for="movements">
+              <!-- <label class="col-sm-2 control-label" for="movements">
                 Movements
-              </label>
+              </label> -->
               <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                <mat-form-field appearance="outline" fxFlex="100">
+                <mat-form-field appearance="outline" fxFlex="90">
+                    <mat-label>Movement</mat-label>
                   <mat-select (selectionChange)="onChange($event.value)" placeholder="Movements Description" formControlName="name" [compareWith]="compareFn">
                     <mat-option *ngFor="let move of movements" [value]="move">{{move.display_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
               <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                <mat-form-field appearance="outline" fxFlex="100">
+                <mat-form-field appearance="outline" fxFlex="90">
                   <mat-label>Reps</mat-label>
                   <input type="number" matInput formControlName="reps">
                 </mat-form-field>
               </div>
-              <mat-icon class="deleteBtn" *ngIf="i>0" title="Delete" (click)="removeItems(i)">delete_forever</mat-icon>
+              <mat-icon class="deleteBtn" *ngIf="i==0" title="Delete"></mat-icon>
+              <mat-icon class="deleteBtn" *ngIf="i>0" title="Delete" (click)="removeItems(i)">remove_circle</mat-icon>
             </div>
           </div>
         </div>
-        <a mat-fab color="primary" style="font-size:large;" (click)="addItems()">+</a>
+        <a mat-mini-fab color="primary" class="editBtn" style="font-size:large;margin-bottom: 2%;" (click)="addItems()">+</a>
         <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field class="example-full-width">
             <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="movements_description" [matAutocomplete]="auto">
@@ -59,6 +61,7 @@
         </div> -->
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Type</mat-label>
             <mat-select placeholder="Type" formControlName="type" multiple [compareWith]="compareFn">
               <mat-option *ngFor="let type of typedata" [value]="type">{{type}}</mat-option>
             </mat-select>
@@ -66,6 +69,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Category</mat-label>
             <mat-select placeholder="Category" formControlName="category" multiple [compareWith]="compareFn">
               <mat-option *ngFor="let cat of categorydata" [value]="cat">{{cat}}</mat-option>
             </mat-select>
@@ -85,7 +89,7 @@
           </mat-form-field>
         </div>
 
-        <div class="label" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 0 auto">
+        <div style="margin-bottom: 2%;" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 0 auto">
           <span> Attempted : </span>
           <mat-slide-toggle formControlName="attempted"></mat-slide-toggle>
         </div>

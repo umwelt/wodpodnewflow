@@ -54,6 +54,7 @@ export class WodsComponent implements OnInit {
   removeItems(i) {
     const md = <FormArray>this.form.controls['movements_description'];
     md.removeAt(i);
+    this.onChange(i);
   }
   onChange(rowdata) {
     this.sets = [];
@@ -62,9 +63,10 @@ export class WodsComponent implements OnInit {
       this.moves.push({ name: element.name.display_name, reps: element.reps });
       this.sets.push(element.name);
     });
-    this.form.controls['movements_description'].patchValue(this.moves);
+    // this.form.controls['movements_description'].patchValue(this.moves);
   }
   addWods() {
+    this.onChange('temp');
     this.form.controls['movements_description'].patchValue(this.moves);
     var datapasser = {
       "info": this.form.value,
@@ -84,13 +86,16 @@ export class WodsComponent implements OnInit {
       let gotData = res.data();
       this.form.patchValue(gotData.info);
       let temp = [];
-      gotData.sets.forEach((ele, idx) => {        
+      gotData.sets.forEach((ele, idx) => {
+        if(idx>0)
+        this.addItems();
         temp.push({ name: ele, reps: gotData.info.movements_description[idx].reps });
       });
       this.form.controls['movements_description'].patchValue(temp);
     });
   }
   updateWods() {
+    this.onChange('temp');
     this.form.controls['movements_description'].patchValue(this.moves);
     var datapasser = {
       "info": this.form.value,

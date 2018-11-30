@@ -20,6 +20,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Primary Muscles</mat-label>
             <mat-select placeholder="Primary Muscles" formControlName="primary_muscles" multiple [compareWith]="compareFn">
               <mat-option *ngFor="let muscle of muscles" [value]="muscle">{{muscle.name}}</mat-option>
             </mat-select>
@@ -27,6 +28,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Secondary Muscles</mat-label>
             <mat-select placeholder="Secondary Muscles" formControlName="secondary_muscles" multiple [compareWith]="compareFn">
               <mat-option *ngFor="let muscle of muscles" [value]="muscle">{{muscle.name}}</mat-option>
             </mat-select>
@@ -34,6 +36,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Secondary Muscles</mat-label>
             <mat-select placeholder="Equipments" formControlName="equipments" multiple [compareWith]="compareFn">
               <mat-option *ngFor="let equip of equipments" [value]="equip">{{equip.name}}</mat-option>
             </mat-select>
@@ -54,6 +57,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Type</mat-label>
             <mat-select placeholder="Type" formControlName="type">
               <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
             </mat-select>

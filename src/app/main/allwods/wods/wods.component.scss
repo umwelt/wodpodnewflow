@@ -10,9 +10,10 @@
 .full-width-table {
     width: 100%;
   }
-  .label{
+  label{
     font-size: large;
-    padding-bottom: 2%;
+    // padding-bottom: 2%;
+    margin-right: 1%;
   }
 //   .mat-accent{
 //       background-color: #039be5;
@@ -179,4 +180,5 @@
   .deleteBtn{
       color: #f44336;
       cursor: pointer;
+      align-self: center;
   }
