@@ -38,6 +38,10 @@ const appRoutes: Routes = [
         loadChildren: './main/movements/movements.module#MovementsModule'
     },
     {
+        path        : 'programs',
+        loadChildren: './main/programs/programs.module#ProgramsModule'
+    },
+    {
         path        : 'wods',
         loadChildren: './main/allwods/allwods.module#allWodsModule'
     },

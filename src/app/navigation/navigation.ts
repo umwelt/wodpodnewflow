@@ -199,6 +199,26 @@ export const navigation: FuseNavigation[] = [
                         url  : '/wods/listing'
                     }
                 ]
+            },
+            {
+                id       : 'programs',
+                title    : 'Programs',
+                type     : 'collapsable',
+                icon     : 'dashboard',
+                children : [
+                    {
+                        id   : 'authors',
+                        title: 'Authors',
+                        type : 'item',
+                        url  : '/programs/authors'
+                    },
+                    {
+                        id   : 'allpros',
+                        title: 'All Programs',
+                        type : 'item',
+                        url  : '/programs/listing'
+                    }
+                ]
             }
         ]
     },
