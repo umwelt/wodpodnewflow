@@ -36,7 +36,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
-              <mat-label>Secondary Muscles</mat-label>
+              <mat-label>Equipments</mat-label>
             <mat-select placeholder="Equipments" formControlName="equipments" multiple [compareWith]="compareFn">
               <mat-option *ngFor="let equip of equipments" [value]="equip">{{equip.name}}</mat-option>
             </mat-select>
