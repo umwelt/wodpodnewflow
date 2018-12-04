@@ -20,7 +20,7 @@ export class ProgramsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: ProgramsDataSource;
-  displayedColumns = ['id', 'name', 'level', 'category_name'];
+  displayedColumns = ['id', 'name', 'level', 'category_name','action'];
   constructor(private firebase: AngularFirestore, private _formBuilder: FormBuilder, public toastr: ToastrService,private route:Router) { }
   ngOnInit() {
     this.dataSource = new ProgramsDataSource(this.paginator, this.sort, this.firebase);

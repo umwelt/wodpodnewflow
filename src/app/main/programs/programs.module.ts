@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { AuthorsComponent } from './author/authors.component';
-import { MatTableModule, MatPaginatorModule,MatIconModule, MatSortModule,MatInputModule,MatSelectModule, MatButtonModule,MatFormFieldModule,MatDialogModule,MatSlideToggleModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule,MatIconModule, MatSortModule,MatInputModule,MatSelectModule, MatButtonModule,MatFormFieldModule,MatDialogModule,MatDatepickerModule,MatSlideToggleModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -43,6 +43,7 @@ const routes = [
     MatDialogModule,
     MatInputModule,
     MatIconModule,
+    MatDatepickerModule,
     MatSlideToggleModule,
     MatSelectModule,
     MatFormFieldModule,

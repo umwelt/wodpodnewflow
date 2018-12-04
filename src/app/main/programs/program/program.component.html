@@ -47,7 +47,7 @@
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>Author</mat-label>
-            <mat-select placeholder="Author" formControlName="author">
+            <mat-select placeholder="Author" formControlName="author" [compareWith]="compareFn1">
               <mat-option *ngFor="let author of authors" [value]="author">{{author.name}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -60,6 +60,44 @@
           </mat-form-field>
         </div>
 
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+          <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
+            <mat-label>Released Date</mat-label>
+            <input matInput [matDatepicker]="released" formControlName="released">
+            <mat-datepicker-toggle matSuffix [for]="released"></mat-datepicker-toggle>
+            <mat-datepicker #released></mat-datepicker>
+          </mat-form-field>
+        </div> -->
+        <div formGroupName="purchase" class="blockerDisplay">
+          <div class="label" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 0 auto">
+            <span> Purchased : </span>
+            <mat-slide-toggle formControlName="purchased"></mat-slide-toggle>
+          </div>
+          <div class="label" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 0 auto">
+            <span> Restored : </span>
+            <mat-slide-toggle formControlName="restored"></mat-slide-toggle>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Tier</mat-label>
+              <mat-select placeholder="Tier" formControlName="tier">
+                <mat-option *ngFor="let tier of tiers" [value]="tier">{{tier}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Price</mat-label>
+              <input matInput type="number" formControlName="price">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>Promo</mat-label>
+              <input matInput formControlName="promo">
+            </mat-form-field>
+          </div>
+        </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>Category Id</mat-label>
@@ -88,11 +126,18 @@
             </mat-form-field>
           </div>
         </div>
+        <!-- <div class="file-uploader">
+          <input (click)="pushFile($event)" type="file" formControlName="images" #fileInput />
+          <button mat-mini-fab color="warn" class="add-file-button" (click)="fileInput.click();pushFile($event)" aria-label="Add Image File"
+            [@animate]="{value:'*', params:{delay:'300ms',scale:'0.2'}}">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div> -->
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>Wods</mat-label>
-            <mat-select placeholder="Wods" formControlName="wods" multiple [compareWith]="compareFn">
-              <mat-option *ngFor="let wod of wods" [value]="wod">{{wod.info.name}}</mat-option>
+            <mat-select placeholder="Wods" formControlName="wods" multiple [compareWith]="compareFn1">
+              <mat-option *ngFor="let wod of woddata" [value]="wod">{{wod.info.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
