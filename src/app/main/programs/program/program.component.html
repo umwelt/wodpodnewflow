@@ -126,13 +126,18 @@
             </mat-form-field>
           </div>
         </div>
-        <!-- <div class="file-uploader">
-          <input (click)="pushFile($event)" type="file" formControlName="images" #fileInput />
-          <button mat-mini-fab color="warn" class="add-file-button" (click)="fileInput.click();pushFile($event)" aria-label="Add Image File"
+        <input hidden (change)="pushFile($event)" type="file" #fileInput />
+        <div class="file-uploader">
+          <a *ngIf="!imgsrc" mat-mini-fab color="primary" class="add-file-button" (click)="fileInput.click();pushFile($event)"
+            aria-label="Add Image File" [@animate]="{value:'*', params:{delay:'300ms',scale:'0.2'}}">
+            <mat-icon>add_a_photo</mat-icon>
+          </a>
+          <a *ngIf="imgsrc" mat-mini-fab color="warn" class="remove-file-button" (click)="popFile(imgsrc)" aria-label="Remove Image File"
             [@animate]="{value:'*', params:{delay:'300ms',scale:'0.2'}}">
-            <mat-icon>add</mat-icon>
-          </button>
-        </div> -->
+            <mat-icon>remove</mat-icon>
+          </a>
+          <img *ngIf="imgsrc" [src]="imgsrc" class="imgSetter" (dblclick)="popFile(imgsrc)" />
+        </div>
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>Wods</mat-label>

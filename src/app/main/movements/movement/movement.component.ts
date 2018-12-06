@@ -37,8 +37,8 @@ export class MovementComponent implements OnInit {
       double_weight: [false],
       cardio: [false],
       type: ['', Validators.required],
-      reps: [0,[Validators.min(1)]],
-      time:[0,[Validators.min(1)]],
+      // reps: [0,[Validators.min(1)]],
+      // time:[0,[Validators.min(1)]],
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
     });
   }
@@ -65,13 +65,13 @@ export class MovementComponent implements OnInit {
     });
   }
   addMovement() {
-    this.firebase.collection('movement_bank').add(this.form.value);
+    this.firebase.collection('movements_bank').add(this.form.value);
   }
   compareFn(v1, v2): boolean {
     return v1 && v2 ? v1.name === v2.name : v1 === v2;
   }
   editMovement(row) {
-    this.Modelref = this.firebase.doc(`movement_bank/${row}`);
+    this.Modelref = this.firebase.doc(`movements_bank/${row}`);
     this.Modelref.get().subscribe(res => {
       let gotData = res.data();
       this.form.patchValue(gotData);

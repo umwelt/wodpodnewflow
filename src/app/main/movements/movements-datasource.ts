@@ -31,7 +31,7 @@ export class MovementsDataSource extends DataSource<MovementsItem> {
   data: MovementsItem[];
   constructor(private paginator: MatPaginator, private sort: MatSort, private af: AngularFirestore) {
     super();
-    var xss = this.af.collection('/movement_bank').snapshotChanges().pipe(
+    var xss = this.af.collection('/movements_bank').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as MovementsItem;
         const id = a.payload.doc.id;

@@ -1,18 +1,13 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator, MatSort, MatFormFieldControl, MatFormField, MatIcon } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFirestore } from "angularfire2/firestore";
 import { FirebaseApp } from "angularfire2";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import Swal from 'sweetalert2';
-import { map } from 'rxjs/operators';
-// import * as FB from 'firebase/storage';
-import * as firebase from 'firebase/app';
-import 'firebase/storage';
-
+import { map, finalize } from 'rxjs/operators';
+import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
 
 
 @Component({
@@ -23,11 +18,12 @@ import 'firebase/storage';
   encapsulation: ViewEncapsulation.None
 })
 export class ProgramComponent implements OnInit {
-  form: FormGroup; Modelref; _id;
-  constructor(private firebase: AngularFirestore, private app: FirebaseApp, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router) { }
+  uploadTask: AngularFireUploadTask;
+  form: FormGroup; Modelref; _id;imgsrc;
+  constructor(private firebase: AngularFirestore,private Fstorage:AngularFireStorage, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router) { }
   authors; equipments; woddata; types = ['time', 'reps', 'distance']; tiers = ['basic', 'advanced', 'super'];
   levels = ['beginner', 'advanced', 'intermediate']; modes = ['ghost', 'phantom', 'beast', 'normal', 'advanced'];
-  private basePath: string = '/uploads';
+  
   ngOnInit() {
     this.getWods();
     this.getAuthors();
@@ -111,38 +107,33 @@ export class ProgramComponent implements OnInit {
     this.Modelref.get().subscribe(res => {
       let gotData = res.data();
       this.form.patchValue(gotData);
+      this.imgsrc=gotData.images;
       this.form.controls['wods'].patchValue(gotData.wods);
     });
   }
   updateProgram() {
     this.Modelref.update(this.form.value);
   }
-  pushFile(file) {
-    let storage = this.app.storage().ref();
-    let uploadTask = storage.child(`${this.basePath}/${file.target.file}`).put(file.target.file);
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) => {
-        // upload in progress
-        // upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      },
-      (error) => {
-        // upload failed
-        console.log(error)
-      },
-      () => {
-        // upload success
-        console.log(uploadTask.snapshot.downloadURL);
-
-        // upload.url = uploadTask.snapshot.downloadURL
-        // upload.name = upload.file.name
-        // this.saveFileData(upload)
-      }
-    );
+  pushFile(event) {
+    let filePath='/wods_programs/'+event.target.files[0].name;
+    this.uploadTask= this.Fstorage.upload(filePath, event.target.files[0]);    
+    const fileRef = this.Fstorage.ref(filePath);
+    this.uploadTask.snapshotChanges().pipe(
+      finalize(() => {
+        this.imgsrc = fileRef.getDownloadURL();
+        this.imgsrc.subscribe(url => {
+          this.imgsrc = url;
+          this.form.controls['images'].patchValue(this.imgsrc);
+        });
+      })
+    ).subscribe();
+  }
+  popFile(item){
+    this.imgsrc='';
+    this.form.controls['images'].patchValue(this.imgsrc);
+    return this.Fstorage.storage.refFromURL(item).delete();
   }
   saveProgram() {
-    // this.pushFile();
-    // console.log(this.form.value);
-
     if (!this._id) {
       this.addProgram();
     }

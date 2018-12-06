@@ -104,7 +104,7 @@ export class WodsComponent implements OnInit {
     this.Modelref.update(datapasser);
   }
   getMovements() {
-    var movementdata = this.firebase.collection('movement_bank').snapshotChanges().pipe(
+    var movementdata = this.firebase.collection('movements_bank').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;

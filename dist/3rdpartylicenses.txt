@@ -157,6 +157,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+@angular/material/datepicker
+
 rxjs
 Apache-2.0
                                Apache License
@@ -363,7 +365,13 @@ Apache-2.0
  
 
 
-@angular/material/datepicker
+@angular/material/select
+
+@angular/material/paginator
+
+@angular/material/sort
+
+@angular/material/table
 
 d3-selection
 BSD-3-Clause
@@ -518,8 +526,6 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
-@angular/material/select
 
 d3-force
 BSD-3-Clause
@@ -1024,12 +1030,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @angular/material/divider
 
-@angular/material/paginator
-
-@angular/material/sort
-
-@angular/material/table
-
 @agm/core
 MIT
 The MIT License (MIT)
@@ -1054,22 +1054,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-
-@angular/material/expansion
-
-@angular/material/snack-bar
-
-@angular/material/chips
-
-@angular/material/sidenav
-
-@angular/material/progress-spinner
-
-@angular/material/slide-toggle
-
-@angular/material/button-toggle
-
-@angular/material/stepper
 
 angularfire2/firestore
 MIT
@@ -1099,6 +1083,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+
+@angular/material/slide-toggle
+
+@angular/material/expansion
+
+@angular/material/snack-bar
+
+@angular/material/chips
+
+@angular/material/sidenav
+
+@angular/material/progress-spinner
+
+@angular/material/button-toggle
+
+@angular/material/stepper
 
 contra
 MIT
@@ -2386,6 +2386,17 @@ For more information, please refer to <http://unlicense.org/>
 
 web-animations-js
 Apache-2.0
+
+@angular/fire/storage
+MIT
+
+@firebase/storage
+Apache-2.0
+
+firebase/storage
+
+angularfire2/storage
+MIT
 
 angularfire2/auth
 MIT

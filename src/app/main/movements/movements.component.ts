@@ -38,7 +38,7 @@ export class MovementsComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.value) {
-        this.firebase.doc(`movement_bank/${row.id}`).delete();
+        this.firebase.doc(`movements_bank/${row.id}`).delete();
         this.dataSource = new MovementsDataSource(this.paginator, this.sort, this.firebase);
         this.toastr.success('Movement Removed Successfully!', 'Success!');
       } 

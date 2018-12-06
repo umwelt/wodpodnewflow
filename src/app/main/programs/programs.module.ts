@@ -9,6 +9,7 @@ import { MatTableModule, MatPaginatorModule,MatIconModule, MatSortModule,MatInpu
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from "angularfire2/storage";
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../../../environments/environment';
 import { ProgramComponent } from './program/program.component';
@@ -50,6 +51,7 @@ const routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     AngularFireDatabaseModule
   ],
   declarations: [ProgramsComponent, ProgramComponent , AuthorsComponent]
