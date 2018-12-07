@@ -4,7 +4,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { AngularFirestore } from "angularfire2/firestore";
 import { FirebaseApp } from "angularfire2";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray,FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { map, finalize } from 'rxjs/operators';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
@@ -19,7 +19,7 @@ import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference 
 })
 export class ProgramComponent implements OnInit {
   uploadTask: AngularFireUploadTask;
-  form: FormGroup; Modelref; _id;imgsrc;
+  form: FormGroup; Modelref; _id;imgsrc;wods;
   constructor(private firebase: AngularFirestore,private Fstorage:AngularFireStorage, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router) { }
   authors; equipments; woddata; types = ['time', 'reps', 'distance']; tiers = ['basic', 'advanced', 'super'];
   levels = ['beginner', 'advanced', 'intermediate']; modes = ['ghost', 'phantom', 'beast', 'normal', 'advanced'];
@@ -37,7 +37,8 @@ export class ProgramComponent implements OnInit {
       detail: ['', Validators.required],
       level: ['', Validators.required],
       type: ['', Validators.required],
-      wods: [[], Validators.required],
+      // wods: [[], Validators.required],
+      wods:this._formBuilder.array([this.createItems()]),
       active: [false],
       mode: ['', Validators.required],
       trainer_tips: this._formBuilder.group({
@@ -58,6 +59,25 @@ export class ProgramComponent implements OnInit {
         price: [0, Validators.required]
       }),
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
+    });
+  }
+  createItems(): FormGroup {
+    return this._formBuilder.group({
+      wod: ['', Validators.required]
+    })
+  }
+  addItems() {
+    (<FormArray>this.form.get('wods')).push(this.createItems());
+  }
+  removeItems(i) {
+    const md = <FormArray>this.form.controls['wods'];
+    md.removeAt(i);
+    this.onChange(i);
+  }
+  onChange(rowdata) {
+    this.wods = [];
+    this.form.controls['wods'].value.forEach(element => {
+      this.wods.push({ name: element});
     });
   }
   getEquipments() {
@@ -97,9 +117,13 @@ export class ProgramComponent implements OnInit {
     this.firebase.collection('programs_bank').add(this.form.value);
   }
   compareFn(v1, v2): boolean {
-    return v1 && v2 ? v1.name === v2.name : v1 === v2;
+    if (v1.name && v2.name) {
+      return v1 && v2 ? v1.name === v2.name : v1 === v2;
+    }
+    return v1 && v2 ? v1 === v2 : v1.name === v2.name;
   }
   compareFn1(v1, v2): boolean {
+    debugger
     return v1 && v2 ? v1.id === v2.id : v1 === v2;
   }
   editProgram(row) {
@@ -108,6 +132,10 @@ export class ProgramComponent implements OnInit {
       let gotData = res.data();
       this.form.patchValue(gotData);
       this.imgsrc=gotData.images;
+      gotData.wods.forEach((ele, idx) => {
+        if(idx>0)
+        this.addItems();
+      });
       this.form.controls['wods'].patchValue(gotData.wods);
     });
   }
