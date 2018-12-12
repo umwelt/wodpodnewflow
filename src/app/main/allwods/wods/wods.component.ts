@@ -60,8 +60,10 @@ export class WodsComponent implements OnInit {
     this.sets = [];
     this.moves = [];
     this.form.controls['movements_description'].value.forEach(element => {
-      this.moves.push({ name: element.name.display_name, reps: element.reps });
-      this.sets.push(element.name);
+      if(element.name.display_name){
+        this.moves.push({ name: element.name.display_name, reps: element.reps });
+        this.sets.push(element.name);
+      }
     });
     // this.form.controls['movements_description'].patchValue(this.moves);
   }
@@ -87,8 +89,8 @@ export class WodsComponent implements OnInit {
       this.form.patchValue(gotData.info);
       let temp = [];
       gotData.sets.forEach((ele, idx) => {
-        if(idx>0)
-        this.addItems();
+        if (idx > 0)
+          this.addItems();
         temp.push({ name: ele, reps: gotData.info.movements_description[idx].reps });
       });
       this.form.controls['movements_description'].patchValue(temp);
@@ -121,7 +123,11 @@ export class WodsComponent implements OnInit {
     else {
       this.updateWods();
     }
-    this.route.navigate(['/wods/listing']);
+    if (localStorage.getItem('filledData')) {
+      this.route.navigate(['/programs/program']);
+    } else {
+      this.route.navigate(['/wods/listing']);
+    }
     this.toastr.success('Wod Saved Successfully!', 'Success!');
   }
 

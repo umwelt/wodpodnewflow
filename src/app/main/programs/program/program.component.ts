@@ -1,14 +1,12 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatPaginator, MatSort, MatFormFieldControl, MatFormField, MatIcon } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { AngularFirestore } from "angularfire2/firestore";
-import { FirebaseApp } from "angularfire2";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray,FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { map, finalize } from 'rxjs/operators';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
-
 
 @Component({
   selector: 'app-program',
@@ -20,7 +18,7 @@ import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference 
 export class ProgramComponent implements OnInit {
   uploadTask: AngularFireUploadTask;
   form: FormGroup; Modelref; _id;imgsrc;wods;
-  constructor(private firebase: AngularFirestore,private Fstorage:AngularFireStorage, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router) { }
+  constructor(private firebase: AngularFirestore,private Fstorage:AngularFireStorage, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router,public dialog: MatDialog) { }
   authors; equipments; woddata; types = ['time', 'reps', 'distance']; tiers = ['basic', 'advanced', 'super'];
   levels = ['beginner', 'advanced', 'intermediate']; modes = ['ghost', 'phantom', 'beast', 'normal', 'advanced'];
   
@@ -47,7 +45,7 @@ export class ProgramComponent implements OnInit {
       }),
       images: [''],
       author: ['', Validators.required],
-      released: ['', Validators.required],
+      released: [''],
       category_id: ['', Validators.required],
       category_name: ['', Validators.required],
       wods_inside: [0, [Validators.min(1)]],
@@ -60,6 +58,10 @@ export class ProgramComponent implements OnInit {
       }),
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
     });
+    if(localStorage.getItem('filledData')){
+      let x=JSON.parse(localStorage.getItem('filledData'));
+      this.form.patchValue(x);
+    }
   }
   createItems(): FormGroup {
     return this._formBuilder.group({
@@ -123,7 +125,6 @@ export class ProgramComponent implements OnInit {
     return v1 && v2 ? v1 === v2 : v1.name === v2.name;
   }
   compareFn1(v1, v2): boolean {
-    debugger
     return v1 && v2 ? v1.id === v2.id : v1 === v2;
   }
   editProgram(row) {
@@ -131,6 +132,12 @@ export class ProgramComponent implements OnInit {
     this.Modelref.get().subscribe(res => {
       let gotData = res.data();
       this.form.patchValue(gotData);
+      if(gotData.released.seconds){
+        this.form.controls['released'].patchValue(new Date(gotData.released.seconds*1000));
+      }
+      else{
+        this.form.controls['released'].patchValue(new Date(gotData.released));
+      }
       this.imgsrc=gotData.images;
       gotData.wods.forEach((ele, idx) => {
         if(idx>0)
@@ -161,7 +168,20 @@ export class ProgramComponent implements OnInit {
     this.form.controls['images'].patchValue(this.imgsrc);
     return this.Fstorage.storage.refFromURL(item).delete();
   }
+  addWod(){
+    localStorage.setItem('addwoder','true');
+    localStorage.setItem('filledData',JSON.stringify(this.form.value));
+    this.route.navigate(['wods/wod'])
+  }
   saveProgram() {
+    if(!localStorage.getItem('addwoder') && this.form.value.released._d){
+      this.form.controls.released.patchValue(this.form.value.released._d);
+    }
+    else{
+      this.form.controls.released.patchValue(this.form.value.released);
+    }
+    localStorage.removeItem('addwoder');
+    localStorage.removeItem('filledData');
     if (!this._id) {
       this.addProgram();
     }

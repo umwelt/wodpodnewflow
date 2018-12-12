@@ -53,21 +53,21 @@
           </mat-form-field>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" fxFlex="100">
             <mat-label>Released</mat-label>
             <input matInput type="date" formControlName="released">
           </mat-form-field>
-        </div>
+        </div> -->
 
-        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
           <mat-form-field appearance="outline" class="mr-sm-12" fxFlex>
             <mat-label>Released Date</mat-label>
-            <input matInput [matDatepicker]="released" formControlName="released">
-            <mat-datepicker-toggle matSuffix [for]="released"></mat-datepicker-toggle>
-            <mat-datepicker #released></mat-datepicker>
+            <input matInput [matDatepicker]="dp3" placeholder="Released Date" disabled formControlName="released">
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
           </mat-form-field>
-        </div> -->
+        </div>
         <div formGroupName="purchase" class="blockerDisplay">
           <div class="label" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 0 auto">
             <span> Purchased : </span>
@@ -150,20 +150,20 @@
 
         <!-- dynamic wods -->
 
-        <div formArrayName="wods" *ngFor="let wods of form.get('wods')['controls']; let i = index"
-          class="form-group">
+        <div formArrayName="wods" *ngFor="let wods of form.get('wods')['controls']; let i = index" class="form-group">
           <div [formGroupName]="i">
             <div class="form-group" class="row cols-md-12">
               <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
                 <mat-form-field appearance="outline" fxFlex="90">
                   <mat-label>Wods</mat-label>
-                  <mat-select (selectionChange)="onChange($event.value)" placeholder="Wod"
-                    formControlName="wod" [compareWith]="compareFn1">
+                  <mat-select (selectionChange)="onChange($event.value)" placeholder="Wod" formControlName="wod"
+                    [compareWith]="compareFn1">
                     <mat-option *ngFor="let wo of woddata" [value]="wo">{{wo.info.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
-              <mat-icon class="deleteBtn" *ngIf="i==0" title="Delete"></mat-icon>
+              <!-- <mat-icon class="deleteBtn" *ngIf="i==0" title="Delete"></mat-icon> -->
+              <a (click)="addWod()" *ngIf="i==0" mat-raised-button color="accent" style="height:40px;">Add Wod</a>
               <mat-icon class="deleteBtn" *ngIf="i>0" title="Delete" (click)="removeItems(i)">remove_circle</mat-icon>
             </div>
           </div>
@@ -191,8 +191,7 @@
           </mat-form-field>
         </div>
 
-        <button mat-raised-button color="accent" class="submit-button" aria-label="Save" [disabled]="form.invalid"
-          (click)="saveProgram()">
+        <button mat-raised-button color="accent" class="submit-button" aria-label="Save" (click)="saveProgram()">
           Save
         </button>
       </form>

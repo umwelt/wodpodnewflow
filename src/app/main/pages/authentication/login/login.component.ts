@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     firelogin() {
         this.afAuth.auth.signInWithEmailAndPassword(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
             .then((doc) => {
-                console.log(doc);
+                // console.log(doc);
                 this.toastr.success('User Login Successfully!', 'Success!');
                 // this.snack.open('User Login Successfully!', 'Success!', {
                 //     duration: 3000,

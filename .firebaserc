@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "wodpod-d3fc2"
+    "default": "wodpod-d3fc2",
+    "prod": "wodpod-prod"
   }
 }
