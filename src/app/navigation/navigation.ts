@@ -222,6 +222,32 @@ export const navigation: FuseNavigation[] = [
             }
         ]
     },
+    {
+        id       : 'cards',
+        title    : 'Cards',
+        type     : 'collapsable',
+        icon     : 'dashboard',
+        children : [
+            // {
+            //     id   : 'cards',
+            //     title: 'All Cards',
+            //     type : 'item',
+            //     url  : '/cards/listing'
+            // },
+            {
+                id   : 'benefits',
+                title: 'Benefits',
+                type : 'item',
+                url  : '/cards/benefits'
+            },
+            {
+                id   : 'nutrients',
+                title: 'Nutrients',
+                type : 'item',
+                url  : '/cards/nutrients'
+            }
+        ]
+    },
     // {
     //     id      : 'pages',
     //     title   : 'Pages',

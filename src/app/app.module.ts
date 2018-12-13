@@ -21,6 +21,8 @@ import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
 import { MovementsModule } from "app/main/movements/movements.module";
 import { allWodsModule } from "app/main/allwods/allwods.module";
+import { AllcardsModule } from "app/main/allcards/allcards.module";
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -40,6 +42,10 @@ const appRoutes: Routes = [
     {
         path        : 'programs',
         loadChildren: './main/programs/programs.module#ProgramsModule'
+    },
+    {
+        path        : 'cards',
+        loadChildren: './main/allcards/allcards.module#AllcardsModule'
     },
     {
         path        : 'wods',
