@@ -228,12 +228,12 @@ export const navigation: FuseNavigation[] = [
         type     : 'collapsable',
         icon     : 'dashboard',
         children : [
-            // {
-            //     id   : 'cards',
-            //     title: 'All Cards',
-            //     type : 'item',
-            //     url  : '/cards/listing'
-            // },
+            {
+                id   : 'cards',
+                title: 'All Cards',
+                type : 'item',
+                url  : '/cards/listing'
+            },
             {
                 id   : 'benefits',
                 title: 'Benefits',

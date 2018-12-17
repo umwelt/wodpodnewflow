@@ -14,6 +14,7 @@ import { BenefitsComponent } from './benefits/benefits.component';
 import { NutritionsComponent } from './nutritions/nutritions.component';
 import { CardComponent } from './card/card.component';
 import { AllcardsComponent } from './allcards.component';
+import { AcademyCoursesService } from 'app/main/apps/academy/courses.service';
 
 const routes = [
   {
@@ -68,6 +69,7 @@ const routes = [
     AngularFireStorageModule,
     AngularFireDatabaseModule
   ],
+  providers:[AcademyCoursesService],
   declarations: [BenefitsComponent, NutritionsComponent, CardComponent, AllcardsComponent]
 })
 export class AllcardsModule { }
