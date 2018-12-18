@@ -1,0 +1,87 @@
+<div id="academy-courses" class="page-layout simple">
+
+  <!-- CONTENT -->
+  <div class="content p-24">
+
+    <div fxLayout="column" fxLayoutAlign="center">
+      <div class="center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+          <button mat-fab color="primary" style="font-size:large;" [routerLink]="['/cards/card']">+</button>
+        </div>
+      </div>
+
+      <div class="filters" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row-reverse" fxLayoutAlign.gt-xs="space-between center">
+        <mat-form-field appearance="outline" floatLabel="always" class="course-search">
+          <mat-label>Search for a card</mat-label>
+          <input matInput placeholder="Enter a keyword..." [(ngModel)]="searchTerm" (input)="filterCoursesByTerm()">
+        </mat-form-field>
+      </div>
+
+      <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+
+        <div class="course" *ngFor="let course of filteredCards" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="100"
+          [@animate]="{value:'*',params:{y:'100%'}}">
+
+          <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+
+            <div class="content" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 1 auto">
+              <div class="LdivSetter">
+
+                <div class="title-one">NUTRITION CARD per 100 g</div>
+                <div class="h1">{{course.name}}</div>
+                <div class="scientific_name">{{course.scientific_name}}</div>
+
+                <div class="nutrients-main-block">
+                  <div class="h4">WHAT'S IN <span class="innertags">(% of Recommended Dietary Allowance)</span></div>
+                  <div *ngFor="let cr of course.nutrients" class="col-half">
+                    <div class="updated col-half">{{cr.name.name}}</div>
+                    <div class="updated col-half">{{cr.percentage}}</div>
+                  </div>
+                </div>
+
+                <div class="nutrients-main-block">
+                  <div class="h4">Benefits : </div>
+                  <div *ngFor="let cr of course.benefits" class="col-half">
+                    <div class="updated">{{cr.name}}</div>
+                  </div>
+                </div>
+
+                <div class="nutrients-main-block">
+                  <div class="h4">NUTRITION FACTS </div>
+                  <div class="updated col-half">Energy : {{course.energy}}</div>
+                  <div class="updated col-half">Fat : {{course.fat}}</div>
+                  <div class="updated col-half">Saturated : {{course.saturated}}</div>
+                  <div class="updated col-half">Trans : {{course.trans}}</div>
+                  <div class="updated col-half">Carbohydrate : {{course.carbohydrate}}</div>
+                  <div class="updated col-half">Sugars : {{course.sugars}}</div>
+                  <div class="updated col-half">Fiber : {{course.fiber}}</div>
+                  <div class="updated col-half">Protein : {{course.protein}}</div>
+                </div>
+
+              </div>
+              <div fxLayout="row" fxLayoutAlign="end" class="RdivSetter">
+                <img [src]="course.images" class="imgr" />
+              </div>
+            </div>
+
+            <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+              <mat-icon class="editBtn" title="Edit" [routerLink]="'/cards/card/' + course.id " style="margin-right:3%;">edit</mat-icon>
+              <mat-icon class="deleteBtn" title="Delete" (click)="removeCards(course)">delete_forever</mat-icon>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="no-courses" *ngIf="filteredCards?.length === 0">
+          No cards found!
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- / CONTENT -->
+
+</div>
