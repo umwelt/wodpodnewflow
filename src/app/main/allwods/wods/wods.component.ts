@@ -124,9 +124,9 @@ export class WodsComponent implements OnInit {
       this.updateWods();
     }
     if (localStorage.getItem('filledData')) {
-      this.route.navigate(['/programs/program']);
+      this.route.navigate(['/administration/programs/program']);
     } else {
-      this.route.navigate(['/wods/listing']);
+      this.route.navigate(['/administration/wods/listing']);
     }
     this.toastr.success('Wod Saved Successfully!', 'Success!');
   }

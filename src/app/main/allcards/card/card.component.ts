@@ -140,7 +140,7 @@ export class CardComponent implements OnInit {
     else {
       this.updateCard();
     }
-    this.route.navigate(['/cards/listing']);
+    this.route.navigate(['/administration/cards/listing']);
     this.toastr.success('Card Saved Successfully!', 'Success!');
   }
 }

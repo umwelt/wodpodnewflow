@@ -19,13 +19,13 @@ export const navigation: FuseNavigation[] = [
                         id   : 'analytics',
                         title: 'Analytics',
                         type : 'item',
-                        url  : '/apps/dashboards/analytics'
+                        url  : '/administration/apps/dashboards/analytics'
                     },
                     {
                         id   : 'project',
                         title: 'Project',
                         type : 'item',
-                        url  : '/apps/dashboards/project'
+                        url  : '/administration/apps/dashboards/project'
                     }
                 ]
             },
@@ -170,19 +170,19 @@ export const navigation: FuseNavigation[] = [
                         id   : 'movements',
                         title: 'All Movements',
                         type : 'item',
-                        url  : '/movements/listing'
+                        url  : '/administration/movements/listing'
                     },
                     {
                         id   : 'muscles',
                         title: 'Muscles',
                         type : 'item',
-                        url  : '/movements/muscles'
+                        url  : '/administration/movements/muscles'
                     },
                     {
                         id   : 'equipments',
                         title: 'Equipments',
                         type : 'item',
-                        url  : '/movements/equipments'
+                        url  : '/administration/movements/equipments'
                     }
                 ]
             },
@@ -196,7 +196,7 @@ export const navigation: FuseNavigation[] = [
                         id   : 'allwods',
                         title: 'All Wods',
                         type : 'item',
-                        url  : '/wods/listing'
+                        url  : '/administration/wods/listing'
                     }
                 ]
             },
@@ -210,13 +210,13 @@ export const navigation: FuseNavigation[] = [
                         id   : 'authors',
                         title: 'Authors',
                         type : 'item',
-                        url  : '/programs/authors'
+                        url  : '/administration/programs/authors'
                     },
                     {
                         id   : 'allpros',
                         title: 'All Programs',
                         type : 'item',
-                        url  : '/programs/listing'
+                        url  : '/administration/programs/listing'
                     }
                 ]
             }
@@ -232,19 +232,19 @@ export const navigation: FuseNavigation[] = [
                 id   : 'cards',
                 title: 'All Cards',
                 type : 'item',
-                url  : '/cards/listing'
+                url  : '/administration/cards/listing'
             },
             {
                 id   : 'benefits',
                 title: 'Benefits',
                 type : 'item',
-                url  : '/cards/benefits'
+                url  : '/administration/cards/benefits'
             },
             {
                 id   : 'nutrients',
                 title: 'Nutrients',
                 type : 'item',
-                url  : '/cards/nutrients'
+                url  : '/administration/cards/nutrients'
             }
         ]
     },

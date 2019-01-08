@@ -22,6 +22,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { MovementsModule } from "app/main/movements/movements.module";
 import { allWodsModule } from "app/main/allwods/allwods.module";
 import { AllcardsModule } from "app/main/allcards/allcards.module";
+import { LandingpageModule } from "app/main/landingpage/landingpage.module";
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from "angularfire2/database";
@@ -30,29 +31,33 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { ToastrModule } from 'ngx-toastr';
 
-const appRoutes: Routes = [
+const appRoutes: Routes = [    
     {
-        path        : 'apps',
+        path        : '',
+        loadChildren: './main/landingpage/landingpage.module#LandingpageModule'
+    },
+    {
+        path        : 'administration/apps',
         loadChildren: './main/apps/apps.module#AppsModule'
     },
     {
-        path        : 'movements',
+        path        : 'administration/movements',
         loadChildren: './main/movements/movements.module#MovementsModule'
     },
     {
-        path        : 'programs',
+        path        : 'administration/programs',
         loadChildren: './main/programs/programs.module#ProgramsModule'
     },
     {
-        path        : 'cards',
+        path        : 'administration/cards',
         loadChildren: './main/allcards/allcards.module#AllcardsModule'
     },
     {
-        path        : 'wods',
+        path        : 'administration/wods',
         loadChildren: './main/allwods/allwods.module#allWodsModule'
     },
     {
-        path        : 'pages',
+        path        : 'administration/pages',
         loadChildren: './main/pages/pages.module#PagesModule'
     },
     {
@@ -69,7 +74,7 @@ const appRoutes: Routes = [
     },
     {
         path      : '**',
-        redirectTo: 'pages/auth/login'
+        redirectTo: 'administration/pages/auth/login'
     }
 ];
 

@@ -26,7 +26,7 @@ export class ProgramsComponent implements OnInit {
     this.dataSource = new ProgramsDataSource(this.paginator, this.sort, this.firebase);
   }
   editProgram(row){
-    this.route.navigate(['/programs/program/'+row.id]);
+    this.route.navigate(['/administration/programs/program/'+row.id]);
   }
   removeProgram(row) {
     Swal({

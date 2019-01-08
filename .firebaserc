@@ -1,6 +1,16 @@
 {
   "projects": {
     "default": "wodpod-d3fc2",
-    "prod": "wodpod-prod"
+    "prod": "wodpod-prod",
+    "cProduction": "wodpod-production"
+  },
+  "targets": {
+    "wodpod-d3fc2": {
+      "hosting": {
+        "Cproduction": [
+          "wodpod-production"
+        ]
+      }
+    }
   }
 }

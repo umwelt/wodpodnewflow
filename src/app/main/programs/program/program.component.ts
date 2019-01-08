@@ -188,7 +188,7 @@ export class ProgramComponent implements OnInit {
     else {
       this.updateProgram();
     }
-    this.route.navigate(['/programs/listing']);
+    this.route.navigate(['/administration/programs/listing']);
     this.toastr.success('Program Saved Successfully!', 'Success!');
   }
 }

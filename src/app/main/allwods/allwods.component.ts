@@ -26,7 +26,7 @@ export class allwodsComponent implements OnInit {
     this.dataSource = new allWodsDataSource(this.paginator, this.sort, this.firebase);
   }
   editWods(row){
-    this.route.navigate(['/wods/wod/'+row.id]);
+    this.route.navigate(['/administration/wods/wod/'+row.id]);
   }
   removeWods(row) {
     Swal({

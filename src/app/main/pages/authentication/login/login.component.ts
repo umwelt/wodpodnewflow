@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
                 // });
                 localStorage.setItem('fireToken',JSON.stringify(doc));
                 setTimeout(() => {
-                    this.route.navigate(['/apps/dashboards/analytics']);
+                    this.route.navigate(['/administration/apps/dashboards/analytics']);
                 },800);
             }).catch((er) => {
                 console.log(er);

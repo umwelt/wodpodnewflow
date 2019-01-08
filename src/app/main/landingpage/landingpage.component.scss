@@ -1,0 +1,66 @@
+.main-landing-page {
+    float: left;
+    width: 100%;
+    background-image: url(assets/images/landing-screen-bg.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .logo {
+        display: block;
+        text-align: center;
+        margin: 80px 0 51px 0;
+        padding: 0px;
+    }
+    .wrapper-inner {
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0px 122px 0 199px;
+        .left-text {
+            float: left;
+            width: 50%;
+            margin: 79px 0 0 0;
+            padding: 0px 0px 0 48px;
+            border-left: 3px solid #03a4f8;
+            max-width: 380px;
+            h1 {
+                display: block;
+                margin: 0px;
+                padding: 0px 0 17px 0;
+                text-transform: uppercase;
+                font-size: 50px;
+                line-height: 60px;
+                color: #ffffff;
+            }
+            p {
+                display: block;
+                margin: 0px;
+                padding: 0px 0 47px 0;
+                font-size: 15px;
+                line-height: 26px;
+                color: #ffffff;
+            }
+            a {
+                text-decoration: none;
+                display: block;
+                background-color: #03a4f8;
+                color: #ffffff;
+                text-transform: uppercase;
+                width: 220px;
+                height: 60px;
+                line-height: 60px;
+                font-size: 16px;
+                border-radius: 2px;
+                -webkit-border-radius: 2px;
+                -ms-border-radius: 2px;
+                text-align: center;
+            }
+        }
+        .img-right {
+            float: right;
+            width: 50%;
+            margin: 0px;
+            padding: 0px 0px 0 0px;            
+        }
+    }
+}

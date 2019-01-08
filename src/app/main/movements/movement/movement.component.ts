@@ -91,7 +91,7 @@ export class MovementComponent implements OnInit {
     else {
       this.updateMovement();
     }
-    this.route.navigate(['/movements/listing']);
+    this.route.navigate(['/administration/movements/listing']);
     this.toastr.success('Movement Saved Successfully!', 'Success!');
   }
 }

@@ -26,7 +26,7 @@ export class MovementsComponent implements OnInit {
     this.dataSource = new MovementsDataSource(this.paginator, this.sort, this.firebase);
   }
   editMovement(row){
-    this.route.navigate(['/movements/movement/'+row.id]);
+    this.route.navigate(['/administration/movements/movement/'+row.id]);
   }
   removeMovement(row) {
     Swal({

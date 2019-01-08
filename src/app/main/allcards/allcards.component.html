@@ -6,7 +6,7 @@
     <div fxLayout="column" fxLayoutAlign="center">
       <div class="center">
         <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
-          <button mat-fab color="primary" style="font-size:large;" [routerLink]="['/cards/card']">+</button>
+          <button mat-fab color="primary" style="font-size:large;" [routerLink]="['/administration/cards/card']">+</button>
         </div>
       </div>
 
@@ -65,7 +65,7 @@
             </div>
 
             <div class="footer" fxLayout="row" fxLayoutAlign="center center">
-              <mat-icon class="editBtn" title="Edit" [routerLink]="'/cards/card/' + course.id " style="margin-right:3%;">edit</mat-icon>
+              <mat-icon class="editBtn" title="Edit" [routerLink]="'/administration/cards/card/' + course.id " style="margin-right:3%;">edit</mat-icon>
               <mat-icon class="deleteBtn" title="Delete" (click)="removeCards(course)">delete_forever</mat-icon>
             </div>
 
