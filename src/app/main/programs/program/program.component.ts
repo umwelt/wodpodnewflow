@@ -62,6 +62,7 @@ export class ProgramComponent implements OnInit {
       let x=JSON.parse(localStorage.getItem('filledData'));
       this.form.patchValue(x);
     }
+    // this.form.controls['wods_inside'].disable();
   }
   createItems(): FormGroup {
     return this._formBuilder.group({
@@ -81,6 +82,7 @@ export class ProgramComponent implements OnInit {
     this.form.controls['wods'].value.forEach(element => {
       this.wods.push({ name: element});
     });
+    this.form.controls['wods_inside'].patchValue(this.wods.length);
   }
   getEquipments() {
     var equipmentdata = this.firebase.collection('equipment_bank').snapshotChanges().pipe(
@@ -147,6 +149,7 @@ export class ProgramComponent implements OnInit {
     });
   }
   updateProgram() {
+    debugger;
     this.Modelref.update(this.form.value);
   }
   pushFile(event) {
@@ -171,7 +174,7 @@ export class ProgramComponent implements OnInit {
   addWod(){
     localStorage.setItem('addwoder','true');
     localStorage.setItem('filledData',JSON.stringify(this.form.value));
-    this.route.navigate(['wods/wod'])
+    this.route.navigate(['administration/wods/wod']);
   }
   saveProgram() {
     if(!localStorage.getItem('addwoder') && this.form.value.released._d){
