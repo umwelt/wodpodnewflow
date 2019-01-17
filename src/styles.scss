@@ -3,3 +3,19 @@
 
 // Import app.theme.scss
 @import "app/app.theme";
+
+@font-face {
+    font-family: 'brandon-text';
+    src: url('./assets/fonts/brandon-text.woff') format('woff');    
+    font-style: normal;
+}
+@font-face {
+    font-family: 'brandon-text-black';
+    src: url('./assets/fonts/brandon-text-black.woff') format('woff');    
+    font-style: normal;
+}
+@font-face {
+    font-family: 'brandon-text-bold';
+    src: url('./assets/fonts/brandon-text-bold.woff') format('woff');    
+    font-style: normal;
+}

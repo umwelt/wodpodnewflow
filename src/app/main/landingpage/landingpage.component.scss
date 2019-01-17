@@ -1,4 +1,5 @@
 @import "src/@fuse/scss/fuse";
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i');
 
 .main-landing-page {
     float: left;
@@ -124,5 +125,123 @@
             }
         }
     }
-}
 
+    .page-first-screen {
+        float: left;
+        width: 100%;
+        background-color: #000000;
+        margin: 0px;
+        padding: 0px;
+        clear: both;
+        position: relative;
+        .position-header {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 79px;
+            background-color: #2b2d30;
+            margin: 0px;
+            padding: 0px 20px;
+            .logo-inner {
+                float: left;
+                width: auto;
+                padding: 27px 0 0 11px;
+            }
+            .right-navi-header {
+                float: right;
+                width: auto;
+                padding: 19px 0 0 0px;
+                a {
+                    border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    -webkit-border-radius: 4px;
+                    background-color: #03a4f8;
+                    color: #ffffff;
+                    text-transform: uppercase;
+                    display: inline-block;
+                    margin: 0px 0 0 30px;
+                    padding: 8px 30px 6px 30px;
+                    font-family: 'brandon-text-bold';
+                    font-size: 12px;
+                    font-weight: bold;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 2.17;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #ffffff;
+                }
+                p {
+                    display: inline-block;
+                    margin: 0px;
+                    padding: 0px;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 12px;
+                    font-weight: 400;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 2.17;
+                    letter-spacing: normal;
+                    text-align: center;
+                    color: #ffffff;
+                }
+            }
+        }
+        .first-screen-set {
+            float: left;
+            width: 100%;
+            margin: 79px 0 0 0;
+            padding: 0px;
+            .center-verticle {
+                float: left;
+                width: 100%;
+                margin: 0px;
+                padding: 0px;
+                .left-img {
+                    float: left;
+                    width: 50%;
+                    margin: 0px;
+                    padding: 0px;
+                }
+                .short-decriptions {
+                    float: left;
+                    width: 50%;
+                    margin: 0px;
+                    padding: 0px;
+                    h2 {
+                        font-family: 'brandon-text';
+                        font-size: 50px;
+                        font-weight: bold;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: 1.2;
+                        letter-spacing: normal;
+                        color: #ffffff;
+                        display: block;
+                        margin: 0px;
+                        padding: 0px;
+                        text-transform: uppercase;
+                    }
+                    p {
+                        display: block;
+                        margin: 0px;
+                        padding: 0px;
+                        font-family: 'Montserrat', sans-serif;
+                        font-size: 15px;
+                        font-weight: 400;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: 1.73;
+                        letter-spacing: normal;
+                        color: rgba($color: #ffffff, $alpha: 0.8)
+                    }
+                }
+            }
+        }
+
+    }
+
+
+}
