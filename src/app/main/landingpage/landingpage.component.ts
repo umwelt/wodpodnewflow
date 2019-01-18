@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
@@ -11,7 +11,8 @@ import { fuseAnimations } from '@fuse/animations';
   animations: fuseAnimations
 })
 export class LandingpageComponent implements OnInit {
-  loginForm: FormGroup;
+  landForm: FormGroup;
+  // @ViewChild('target') target: ElementRef;
   constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder) {
     // Configure the layout
     this._fuseConfigService.config = {
@@ -33,10 +34,27 @@ export class LandingpageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+    window.addEventListener('scroll', this.scrollable, true);
+    this.landForm = this._formBuilder.group({
+      emailaddress: ['', [Validators.required, Validators.email]]
     });
+
+  }
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scrollable, true);
+  }
+  scrolldown(el) {
+    // this.target=el;
+    // this.target.nativeElement.scrollIntoView();
+    // this.target.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    el.scrollIntoView();
+  }
+  scrollable() {
+    console.log(window.top);    
+    // console.log(document.documentElement.scrollTop);    
+    document.getElementsByClassName("hide-slot").item(0).setAttribute('style', 'opacity:0;');
+    document.getElementsByClassName("bottom-scroll-nav").item(0).setAttribute('style', 'opacity:0;')
+    document.getElementsByClassName("position-header").item(0).setAttribute('style', 'opacity:1; top:0;')  
   }
 
 }

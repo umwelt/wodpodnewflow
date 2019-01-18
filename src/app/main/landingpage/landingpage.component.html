@@ -5,7 +5,7 @@
       <div class="left-text">
         <h1>Test the ultimate fitness app</h1>
         <p>Wodpod è il tuo personal trainer digitale: che tu sia un patito di crossfit o uno sportivo occasionale, WODPOD è la chiave per superare le tue sfide. Che aspetti? Richiedi il codice, scarica l’applicazione e supera i tuoi limiti.</p>
-        <a href="#">Request code</a>
+        <a class="hide-slot" (click)="scrolldown(target)">Request code</a>
       </div>
       <div class="img-right">
         <img width="518" src="assets/images/iphone-7-mockup-psd.png">
@@ -16,13 +16,14 @@
         <p>down</p>
       </div>
   </div>
-  <!-------Landing Page Code------->
+  <!-------First Page Code------->
   <div class="page-first-screen">
     <div class="position-header">
       <div class="logo-inner"><img width="100" src="assets/images/landing-logo.png"></div>
       <div class="right-navi-header">
+        <span><img width="" src="assets/images/wof.png"></span>
         <p>Sei pronto a superare i tuoi limiti?</p>
-        <a href="#">Request code</a>
+        <a (click)="scrolldown(target)">Request code</a>
       </div>
     </div>
     <div class="first-screen-set">
@@ -38,6 +39,82 @@
         </div>
       </div>
     </div>
+    <!-------Second Page Code------->
+    <div class="second-screen-set">
+      <div class="center-verticle">
+        <div class="box-title-text">
+          <h3>WHAT YOU WILL EARN</h3>
+          <p>As a user you’ll discover the fun way to be<br>consistent and stay motivated while working out.<br>
+            But, as a tester, we are giving you much more.<br>Check below!</p>
+        </div>  
+        <div class="middle-three-box">
+          <div class="block">
+              <img width="" src="assets/images/icon-01.png">
+              <h4>1 EXCLUSIVE<br>TESTER BADGE</h4>
+          </div>
+          <div class="block middle">
+              <img width="" src="assets/images/icon-02.png">
+              <h4>WODPOD COINS<br>to buy more fitness<br>programs</h4>
+            </div>
+          <div class="block">
+              <img width="" src="assets/images/icon-03.png">
+              <h4>A place in our<br>wall of fame</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-------Third Page Code------->
+    <div class="first-screen-set third">
+      <div class="container">        
+        <div class="short-decriptions">
+          <div class="small-right">
+            <div class="big-num">02</div>
+            <h2>USE IT</h2>
+            <p>Try out a few workouts or do them all and live the complete experience. Inside you’ll find a free 9-workout program that will let you test your fitness skills; all our workouts are bodyweight and equipment free; you can enjoy them literally everywhere.
+            You may challenge yourself and beat your “ghost” or defy your friends, peers and anyone else to find out who is fitter and enjoy a little bit of competition.</p> 
+          </div>  
+        </div>        
+        <div class="left-img">
+          <img width="" src="assets/images/iphone-float.png">
+        </div>        
+      </div>
+    </div>
+    <!-------Fourth Page Code------->
+    <div class="first-screen-set fourth">
+      <div class="center-verticle">
+        <div class="left-img">
+          <img width="" src="assets/images/foto.png">
+        </div>
+        <div class="short-decriptions">
+          <div class="big-num">03</div>
+          <h2>FEED US BACK</h2>
+          <p>After a few days of testing we will be reaching out just to know how the experience is going. We are going to provide a quick and smart survey to collect your opinions, suggestions and kudos!</p> 
+        </div>
+      </div>
+    </div>
+    <!-------Form Section Code------->
+    <div #target class="form-screen-set">
+       <div class="middle-of-div">
+          <h3>REQUEST YOUR INVITATION CODE</h3>
+          <p>As soon as the WodPod iOS app will be live, we’ll send you an email containing the invitation code. In order to do that please provide us with your best email, we’ll be reaching out soon.</p>
+          <div class="form-mail-design">
+            <label>EMAIL ADDRESS*</label>
+            <form name="landForm" [formGroup]="landForm">              
+              <input type="email" matInput formControlName="emailaddress">
+              <input type="submit" value="">
+            </form>            
+          </div>
+          <small>By submitting your email, you are subscribing to our newsletter according to GDPR</small>
+       </div> 
+    </div>
+    <!-------Form Section Code------->
+    <div class="copy-right-sectin">
+      <div class="address-set">WodPod srl @2019 - Via Pier Carlo Boggio 83, Turin Italy - VAT 11744540011, REA number TO - 1237424, contributed capital €35.000</div>
+      <p>Designed by:</p>
+      <p><img width="" src="assets/images/footer-logo.png"></p>
+    </div>
+
   </div>
 
 </div>
