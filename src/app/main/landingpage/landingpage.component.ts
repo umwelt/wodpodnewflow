@@ -4,6 +4,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import Swal from 'sweetalert2';
 import { HttpClient } from "@angular/common/http";
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-landingpage',
@@ -15,7 +16,7 @@ import { HttpClient } from "@angular/common/http";
 export class LandingpageComponent implements OnInit {
   landForm: FormGroup;
   // @ViewChild('target') target: ElementRef;
-  constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder,private http:HttpClient) {
+  constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder, private http: HttpClient) {
     // Configure the layout
     this._fuseConfigService.config = {
       layout: {
@@ -52,15 +53,33 @@ export class LandingpageComponent implements OnInit {
     el.scrollIntoView();
   }
   scrollable() {
-    console.log(document.getElementsByClassName('ps__rail-y'));
-    // console.log(document.body.scrollTop);
-    // console.log(document.documentElement.scrollTop);    
-    document.getElementsByClassName("hide-slot").item(0).setAttribute('style', 'opacity:0;');
-    document.getElementsByClassName("bottom-scroll-nav").item(0).setAttribute('style', 'opacity:0;')
-    document.getElementsByClassName("position-header").item(0).setAttribute('style', 'opacity:1; top:0;')  
+    var attributes = document.getElementsByClassName('ps__rail-y')[0].getAttribute('style');
+    var offset = attributes.split(' ');
+    if (parseInt(offset[1]) >= 300) {
+      document.getElementsByClassName("hide-slot").item(0).setAttribute('style', 'opacity:0;');
+      document.getElementsByClassName("bottom-scroll-nav").item(0).setAttribute('style', 'opacity:0;')
+      document.getElementsByClassName("position-header").item(0).setAttribute('style', 'opacity:1; top:0;')
+    }
+    else {
+      document.getElementsByClassName("hide-slot").item(0).setAttribute('style', 'opacity:1;');
+      document.getElementsByClassName("bottom-scroll-nav").item(0).setAttribute('style', 'opacity:1;')
+      document.getElementsByClassName("position-header").item(0).setAttribute('style', 'opacity:0; top:-79px;')
+    }
   }
-  subscribeIt(){
-    // this.http.post()
+  subscribeIt() {
+    var Obj = {
+      // u: "34dca7d59614b47cdc4dde486",
+      // id: "da0a430276",
+      MERGE0: this.landForm.controls['emailaddress'].value
+    }
+    console.log(Obj);
+    this.http.post(environment.mailchimp.subscriberUri, Obj, { headers: { "Content-Type": "text/plain" } }).subscribe((res) => {
+      console.log(res);
+      Swal({ title: "Success", titleText: "Success!!" });
+    }, (er) => {
+      console.log(er);
+      Swal({ title: "Error!", titleText: "Please Contact Your Administrator!" });
+    });
   }
 
 }

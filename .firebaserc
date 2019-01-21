@@ -2,7 +2,8 @@
   "projects": {
     "default": "wodpod-d3fc2",
     "prod": "wodpod-prod",
-    "cProduction": "wodpod-production"
+    "cProduction": "wodpod-production",
+    "dev": "wodpod-d3fc2"
   },
   "targets": {
     "wodpod-d3fc2": {
