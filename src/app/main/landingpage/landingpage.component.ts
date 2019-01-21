@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import Swal from 'sweetalert2';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-landingpage',
@@ -13,7 +15,7 @@ import { fuseAnimations } from '@fuse/animations';
 export class LandingpageComponent implements OnInit {
   landForm: FormGroup;
   // @ViewChild('target') target: ElementRef;
-  constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder) {
+  constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder,private http:HttpClient) {
     // Configure the layout
     this._fuseConfigService.config = {
       layout: {
@@ -50,11 +52,15 @@ export class LandingpageComponent implements OnInit {
     el.scrollIntoView();
   }
   scrollable() {
-    console.log(window.top);    
+    console.log(document.getElementsByClassName('ps__rail-y'));
+    // console.log(document.body.scrollTop);
     // console.log(document.documentElement.scrollTop);    
     document.getElementsByClassName("hide-slot").item(0).setAttribute('style', 'opacity:0;');
     document.getElementsByClassName("bottom-scroll-nav").item(0).setAttribute('style', 'opacity:0;')
     document.getElementsByClassName("position-header").item(0).setAttribute('style', 'opacity:1; top:0;')  
+  }
+  subscribeIt(){
+    // this.http.post()
   }
 
 }

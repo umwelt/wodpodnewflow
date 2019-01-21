@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    hmr       : false,
+    hmr: false,
     firebase: {
         apiKey: "AIzaSyBMkH2FRpb-IlLFjP5msJ2zQX0X1JqTCGU",
         authDomain: "wodpod-f2086.firebaseapp.com",
@@ -12,7 +12,10 @@ export const environment = {
         projectId: "wodpod-f2086",
         storageBucket: "gs://wodpod-f2086.appspot.com",
         messagingSenderId: ""
-      }
+    },
+    mailchimp: {
+        url:"https://wodpod.us7.list-manage.com/subscribe/post?u=34dca7d59614b47cdc4dde486&amp;id=da0a430276"
+    }
 };
 
 /*

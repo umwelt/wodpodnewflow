@@ -29,7 +29,7 @@
             padding: 0px 0 0 48px;
         }
         @include media-breakpoint('xs') {
-            padding: 0px 20px 0 20px;
+            padding: 0px 40px 0 40px;
         }   
         .left-text {
             float: left;
@@ -44,7 +44,7 @@
             @include media-breakpoint('xs') {
                 margin: 10px 0 0 0;
                 width: 100%;
-                text-align: center;
+                text-align: left;
                 max-width: none;
                 padding: 0;
                 border: none;
@@ -57,8 +57,9 @@
                 font-size: 50px;
                 line-height: 60px;
                 color: #ffffff;
+                font-family: 'brandon-text-bold';                
                 @include media-breakpoint('lt-md') {
-                    font-size: 30px;
+                    font-size: 32px;
                     line-height: 40px;
                 }
             }
@@ -92,6 +93,7 @@
                 }
                 @include media-breakpoint('xs') {
                     display: inline-block;
+                    opacity: 1 !important;
                 }
             }
         }
@@ -117,6 +119,7 @@
             }
             @include media-breakpoint('xs') {
                 padding: 0px 0px 50px 0;
+                display: none;
             }
             p {
                 display: inline-block;
@@ -155,6 +158,9 @@
             margin: 0px;
             padding: 0px 20px;
             z-index: 10000;
+            @include media-breakpoint('xs') {
+                display: none !important;
+            } 
             .logo-inner {
                 float: left;
                 width: auto;
@@ -170,6 +176,12 @@
                     border-right: 1px solid rgba($color: #979797, $alpha: 0.5);
                     padding: 0 30px 0 0;
                     margin-right: 35px;
+                    @include media-breakpoint('lt-md') {
+                        display: none;
+                    } 
+                    @include media-breakpoint('xs') {
+                        display: none;
+                    }
                 }
                 a {
                     border-radius: 4px;
@@ -210,6 +222,12 @@
                     letter-spacing: normal;
                     text-align: center;
                     color: #ffffff;
+                    @include media-breakpoint('lt-md') {
+                        display: none;
+                    } 
+                    @include media-breakpoint('xs') {
+                        display: none;
+                    }
                 }
             }
         }
@@ -217,17 +235,25 @@
             float: left;
             width: 100%;
             margin: 79px 0 0 0;
-            padding: 0px;
+            padding: 0px 20px;
             max-height: 761px;
             overflow: hidden;
+            @include media-breakpoint('xs') {
+                max-height: inherit;
+                padding: 0 40px;
+                margin: 50px 0;
+            }
             &.fourth {
-                padding: 0px 0 100px 0;
+                padding: 0px 20px 100px 20px;
                 margin: 0px;
             }
             &.third {
-                padding: 50px 0 0px 0;
+                padding: 50px 20px 0px 20px;
                 margin: 0px;
                 overflow: visible;
+                @include media-breakpoint('xs') {
+                    padding: 0px 40px 0px 40px;
+                }
                 .container {
                     max-width: 1440px;
                     margin: 0 auto;
@@ -236,10 +262,22 @@
                         width: 50%;
                         margin: 150px 0 0 0;
                         padding: 0px;
+                        @include media-breakpoint('lt-md') {
+                            margin: 50px 0 0 0;
+                        } 
+                        @include media-breakpoint('xs') {
+                            width: 100%;
+                        } 
                         .small-right {
                             float: right;
                             position: relative;
                             padding-left: 126px;
+                            @include media-breakpoint('lt-md') {
+                                padding-left: 50px;
+                            } 
+                            @include media-breakpoint('xs') {
+                                padding-left: 0px;
+                            } 
                             .big-num {
                                 font-family: 'brandon-text-thin';
                                 font-size: 200px;
@@ -252,6 +290,14 @@
                                 position: absolute;
                                 left: -14px;
                                 top: -88px;
+                                @include media-breakpoint('lt-md') {
+                                    font-size: 110px;
+                                    left: -18px;
+                                    top: -40px;
+                                } 
+                                @include media-breakpoint('xs') {
+                                    display: none;
+                                } 
                             }
                             h2 {
                                 font-family: 'brandon-text-bold';
@@ -266,6 +312,10 @@
                                 margin: 0px;
                                 padding: 0px 0 15px 0;
                                 text-transform: uppercase;
+                                @include media-breakpoint('xs') {
+                                    font-size: 32px;
+                                    line-height: 1.25;
+                                } 
                             }
                             p {
                                 display: block;
@@ -281,6 +331,9 @@
                                 color: rgba($color: #ffffff, $alpha: 0.8);
                                 position: relative;
                                 max-width: 340px;
+                                @include media-breakpoint('xs') {
+                                    max-width: none;
+                                }
                                 &:after {
                                     position: absolute;
                                     left: 0;
@@ -299,9 +352,19 @@
                         margin: 0px;
                         padding: 0px;
                         text-align: center;
+                        @include media-breakpoint('xs') {
+                            width: 100%;
+                            padding: 50px 0;
+                        } 
                         img {
                             position: relative;
                             top: -100px;
+                            @include media-breakpoint('lt-md') {
+                                top: 0px;
+                            } 
+                            @include media-breakpoint('xs') {
+                                
+                            } 
                         }     
                     }
                 }
@@ -317,10 +380,16 @@
                     margin: 0px;
                     padding: 0px;
                     text-align: right;
+                    @include media-breakpoint('xs') {
+                        width: 100%;
+                    }
                     img {
                         display: inline-block;
                         position: relative;
                         bottom: -130px;
+                        @include media-breakpoint('xs') {
+                            bottom: 0px;                                
+                        } 
                     }
                 }
                 .short-decriptions {
@@ -329,7 +398,18 @@
                     margin: 200px 0 0 0;
                     padding: 0px 0 0 110px;
                     position: relative;
-                    max-width: 450px;                    
+                    max-width: 450px;
+                    @include media-breakpoint('xs') {
+                        width: 100%;
+                    }
+                    @include media-breakpoint('lt-md') {
+                        margin: 100px 0 0 0;
+                        padding: 0px 0 0 60px;
+                    } 
+                    @include media-breakpoint('xs') {
+                        margin: 0px 0 0 0;
+                        padding: 50px 0 0 0px;
+                    }                    
                     .big-num {
                         font-family: 'brandon-text-thin';
                         font-size: 200px;
@@ -342,6 +422,14 @@
                         position: absolute;
                         left: -14px;
                         top: -88px;
+                        @include media-breakpoint('lt-md') {
+                            font-size: 150px;    
+                            left: -28px;
+                            top: -56px;
+                        } 
+                        @include media-breakpoint('xs') {
+                            display: none;
+                        } 
                     }
                     h2 {
                         font-family: 'brandon-text-bold';
@@ -356,6 +444,10 @@
                         margin: 0px;
                         padding: 0px 0 15px 0;
                         text-transform: uppercase;
+                        @include media-breakpoint('xs') {
+                            font-size: 32px;
+                            line-height: 1.25;
+                        } 
                     }
                     p {
                         display: block;
@@ -387,16 +479,23 @@
             float: left;
             width: 100%;
             margin: 0px 0 0 0;
-            padding: 160px 0 200px 0;
+            padding: 160px 20px 200px 20px;
             max-height: 836px;
             overflow: hidden;
             background-color: #111214;
             text-align: center;
+            @include media-breakpoint('xs') {
+                padding: 60px 40px 0px 40px;
+                max-height: inherit;
+            }
             .box-title-text {
                 width: 100%;
                 float: left;
                 margin: 0px 0 80px 0;
                 padding: 0px;
+                @include media-breakpoint('xs') {
+                    margin: 0px 0 50px 0;
+                }   
                 h3 {
                     display: block;
                     text-align: center;
@@ -425,6 +524,11 @@
                     letter-spacing: normal;
                     color: rgba($color: #ffffff, $alpha: 0.8);
                     position: relative;
+                    @include media-breakpoint('xs') {
+                        br {
+                            display: none;
+                        }
+                    }
                 }
             }
             .middle-three-box {
@@ -435,13 +539,20 @@
                 .block {
                     max-width: 264px;
                     margin: 0 auto;
-                    width: 100%;
+                    width: 33.33%;
                     padding: 0px;
                     display: inline-block;
                     vertical-align: top;
+                    @include media-breakpoint('xs') {
+                        width: 100%;
+                        margin-bottom: 60px;
+                    }
                     &.middle {
                         border-left: 3px solid rgba($color: #ffffff, $alpha: 0.1); 
                         border-right: 3px solid rgba($color: #ffffff, $alpha: 0.1);
+                        @include media-breakpoint('xs') {
+                            border: none;
+                        }
                         h4 {
                             color: #ffc61e;
                         }
@@ -475,10 +586,13 @@
             padding: 140px 0;
             width: 100%;
             background-color: #111214;
+            @include media-breakpoint('xs') {
+                padding: 50px 0;
+            }
             .middle-of-div {
                 margin: 0 auto;
-                max-width: 460px;
-                padding: 0px;
+                max-width: 500px;
+                padding: 0px 20px;
                 color: #ffffff;
                 h3 {
                     display: block;
@@ -560,7 +674,7 @@
                             letter-spacing: normal;
                             color: rgba($color: #ffffff, $alpha: 0.4);
                         }
-                        input[type="submit"] {
+                        .subscriber{
                             width: 60px;
                             height: 48px;
                             position: absolute;

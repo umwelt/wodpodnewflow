@@ -21,7 +21,7 @@
     <div class="position-header">
       <div class="logo-inner"><img width="100" src="assets/images/landing-logo.png"></div>
       <div class="right-navi-header">
-        <span><img width="" src="assets/images/wof.png"></span>
+        <!-- <span><img width="" src="assets/images/wof.png"></span> -->
         <p>Sei pronto a superare i tuoi limiti?</p>
         <a (click)="scrolldown(target)">Request code</a>
       </div>
@@ -102,7 +102,7 @@
             <label>EMAIL ADDRESS*</label>
             <form name="landForm" [formGroup]="landForm">              
               <input type="email" matInput formControlName="emailaddress">
-              <input type="submit" value="">
+              <input type="button" class="subscriber" (click)="subscribeIt()">
             </form>            
           </div>
           <small>By submitting your email, you are subscribing to our newsletter according to GDPR</small>
