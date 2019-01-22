@@ -1,9 +1,10 @@
 <!-------Landing Screen------->
 <div class="main-landing-page">
-  <div class="sec-triangle01"><img width="" src="assets/images/triangles/sec01-triangle01.png"></div>
-  <div class="sec-triangle02"><img width="" src="assets/images/triangles/sec01-triangle02.png"></div>      
-  <div class="logo"><img width="160" src="assets/images/landing-logo.png"></div>
-  <div class="wrapper-inner">
+  <div class="first-set-bg">
+    <div class="sec-triangle01"><img width="" src="assets/images/triangles/sec01-triangle01.png"></div>
+    <div class="sec-triangle02"><img width="" src="assets/images/triangles/sec01-triangle02.png"></div>      
+    <div class="logo"><img width="160" src="assets/images/landing-logo.png"></div>
+    <div class="wrapper-inner">
       <div class="left-text">
         <h1>Test the ultimate fitness app</h1>
         <p>Wodpod è il tuo personal trainer digitale: che tu sia un patito di crossfit o uno sportivo occasionale, WODPOD è la chiave per superare le tue sfide. Che aspetti? Richiedi il codice, scarica l’applicazione e supera i tuoi limiti.</p>
@@ -17,6 +18,7 @@
         <span><img width="25" src="assets/images/scroll-icon.png"></span>
         <p>down</p>
       </div>
+    </div>
   </div>
   <!-------First Page Code------->
   <div class="page-first-screen">
@@ -59,7 +61,7 @@
               <h4>1 EXCLUSIVE<br>TESTER BADGE</h4>
           </div>
           <div class="block middle">
-              <img width="" src="assets/images/icon-02.png">
+              <img width="" src="assets/images/icon-02_01.png">
               <h4>WODPOD COINS<br>to buy more fitness<br>programs</h4>
             </div>
           <div class="block">
@@ -110,7 +112,7 @@
             <label>EMAIL ADDRESS*</label>
             <form name="landForm" [formGroup]="landForm">              
               <input type="email" matInput formControlName="emailaddress">
-              <input type="button" class="subscriber" (click)="subscribeIt()">
+              <input type="button" [disabled]="landForm.invalid" class="subscriber" (click)="subscribeIt()">
             </form>            
           </div>
           <small>By submitting your email, you are subscribing to our newsletter according to GDPR</small>

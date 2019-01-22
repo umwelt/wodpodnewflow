@@ -16,7 +16,7 @@ export const environment = {
     mailchimp: {
         subscriberUri:"https://wodpod.us7.list-manage.com/subscribe/post",
         apiKey:"apikey 06cc32efc5602c5bf07722ac0815834d-us7",
-        Curl:"https://wodpod.us7.list-manage.com/subscribe/post?u=34dca7d59614b47cdc4dde486&amp;id=da0a430276"
+        CurlUri:"https://wodpod.us7.list-manage.com/subscribe/post-json?u=34dca7d59614b47cdc4dde486&id=da0a430276&"
     }
 };
 

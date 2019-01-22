@@ -3,8 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import Swal from 'sweetalert2';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from 'environments/environment';
+import {MatDialog} from '@angular/material';
+import { DialogerComponent } from "./dialoger/dialoger.component";
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-landingpage',
@@ -16,7 +19,7 @@ import { environment } from 'environments/environment';
 export class LandingpageComponent implements OnInit {
   landForm: FormGroup;
   // @ViewChild('target') target: ElementRef;
-  constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(private _fuseConfigService: FuseConfigService, private _formBuilder: FormBuilder, private http: HttpClient,public dialog: MatDialog,private firebase: AngularFirestore,) {
     // Configure the layout
     this._fuseConfigService.config = {
       layout: {
@@ -67,18 +70,9 @@ export class LandingpageComponent implements OnInit {
     }
   }
   subscribeIt() {
-    var Obj = {
-      // u: "34dca7d59614b47cdc4dde486",
-      // id: "da0a430276",
-      MERGE0: this.landForm.controls['emailaddress'].value
-    }
-    console.log(Obj);
-    this.http.post(environment.mailchimp.subscriberUri, Obj, { headers: { "Content-Type": "text/plain" } }).subscribe((res) => {
-      console.log(res);
-      Swal({ title: "Success", titleText: "Success!!" });
-    }, (er) => {
-      console.log(er);
-      Swal({ title: "Error!", titleText: "Please Contact Your Administrator!" });
+    this.firebase.collection('/subscribers_bank').add({ subscriber: this.landForm.controls['emailaddress'].value });
+    const dialogRef = this.dialog.open(DialogerComponent, {
+      width: '700px',
     });
   }
 

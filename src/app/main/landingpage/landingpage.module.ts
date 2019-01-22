@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { MatTableModule, MatCheckboxModule, MatPaginatorModule,MatIconModule, MatSortModule,MatInputModule,MatSelectModule, MatButtonModule,MatFormFieldModule,MatDialogModule,MatSlideToggleModule } from '@angular/material';
+import { DialogerComponent } from './dialoger/dialoger.component';
 const routes = [
   {
     path: '',
@@ -28,6 +29,7 @@ const routes = [
     MatSelectModule,
     MatFormFieldModule
   ],
-  declarations: [LandingpageComponent]
+  declarations: [LandingpageComponent, DialogerComponent],
+  entryComponents:[DialogerComponent]
 })
 export class LandingpageModule { }
