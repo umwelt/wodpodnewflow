@@ -6,8 +6,9 @@
     <div class="logo"><img width="160" src="assets/images/landing-logo.png"></div>
     <div class="wrapper-inner">
       <div class="left-text">
-        <h1>Test the ultimate fitness app</h1>
-        <p>Wodpod è il tuo personal trainer digitale: che tu sia un patito di crossfit o uno sportivo occasionale, WODPOD è la chiave per superare le tue sfide. Che aspetti? Richiedi il codice, scarica l’applicazione e supera i tuoi limiti.</p>
+        <h1>TEST THE FITNESS CHALLENGE APP</h1>
+        <p>We are about to launch WODPOD, the only fitness app that keeps you constantly motivated through competition.
+            You can track performances and challenge yourself or friends on a huge number of fitness programs. Do you wanna try it?</p>
         <a class="hide-slot" (click)="scrolldown(target)">Request code</a>
       </div>
       <div class="img-right">
@@ -26,7 +27,7 @@
       <div class="logo-inner"><img width="100" src="assets/images/landing-logo.png"></div>
       <div class="right-navi-header">
         <!-- <span><img width="" src="assets/images/wof.png"></span> -->
-        <p>Sei pronto a superare i tuoi limiti?</p>
+        <p>Test the fitness challenge app?</p>
         <a (click)="scrolldown(target)">Request code</a>
       </div>
     </div>
@@ -40,8 +41,8 @@
         <div class="short-decriptions">
           <div class="big-num">01</div>
           <h2>GET IT</h2>
-          <p>want you to be our tester, guide, critic, pioneer. We’d like to know what you think about the experience we provide and how to make it better. Come on, join us!
-  Request an invitation code below, download the iOS app, sign up and start using it.</p> 
+          <p>We want you to be our tester, guide, critic, pioneer. We’d like to know what you think about the experience we provide and how to make it better.
+              Come on, join us.<br>Request an invitation code below, download the iOS app, sign up and start using it.<br></p>
         </div>
       </div>
     </div>
@@ -53,7 +54,7 @@
         <div class="box-title-text">
           <h3>WHAT YOU WILL EARN</h3>
           <p>As a user you’ll discover the fun way to be<br>consistent and stay motivated while working out.<br>
-            But, as a tester, we are giving you much more.<br>Check below!</p>
+              But, as a tester, we are giving you much more.<br>Check below!</p>
         </div>  
         <div class="middle-three-box">
           <div class="block">
@@ -80,7 +81,7 @@
             <div class="big-num">02</div>
             <h2>USE IT</h2>
             <p>Try out a few workouts or do them all and live the complete experience. Inside you’ll find a free 9-workout program that will let you test your fitness skills; all our workouts are bodyweight and equipment free; you can enjoy them literally everywhere.
-            You may challenge yourself and beat your “ghost” or defy your friends, peers and anyone else to find out who is fitter and enjoy a little bit of competition.</p> 
+                You may challenge yourself and beat your "ghost" or defy your friends, peers and anyone else to find out who is fitter and enjoy a little bit of competition.</p>
           </div>  
         </div>        
         <div class="left-img">
@@ -109,13 +110,15 @@
           <h3>REQUEST YOUR INVITATION CODE</h3>
           <p>As soon as the WodPod iOS app will be live, we’ll send you an email containing the invitation code. In order to do that please provide us with your best email, we’ll be reaching out soon.</p>
           <div class="form-mail-design">
-            <label>EMAIL ADDRESS*</label>
+            <label>EMAIL ADDRESS</label>
             <form name="landForm" [formGroup]="landForm">              
               <input type="email" matInput formControlName="emailaddress">
               <input type="button" [disabled]="landForm.invalid" class="subscriber" (click)="subscribeIt()">
             </form>            
           </div>
-          <small>By submitting your email, you are subscribing to our newsletter according to GDPR</small>
+           <small> We use MailChimp as our marketing automation platform. By submitting your email address, you acknowledge that the information you provide will be transferred to MailChimp for processing in accordance with their
+               <a href="https://mailchimp.com/legal/privacy/" target="_parent">Privacy Policy </a> and
+               <a href="https://mailchimp.com/legal/terms/" target="_parent"> Terms </a></small>
        </div> 
     </div>
     <!-------Form Section Code------->
