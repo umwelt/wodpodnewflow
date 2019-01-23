@@ -5,6 +5,9 @@
     <div class="sec-triangle02"><img width="" src="assets/images/triangles/sec01-triangle02.png"></div>      
     <div class="logo"><img width="160" src="assets/images/landing-logo.png"></div>
     <div class="wrapper-inner">
+      <div class="img-right-top">
+        <img width="" src="assets/images/sopra.png">
+      </div>
       <div class="left-text">
         <h1>TEST THE FITNESS CHALLENGE APP</h1>
         <p>We are about to launch WODPOD, the only fitness app that keeps you constantly motivated through competition.
@@ -12,7 +15,7 @@
         <a class="hide-slot" (click)="scrolldown(target)">Request code</a>
       </div>
       <div class="img-right">
-        <img width="518" src="assets/images/iphone-7-mockup-psd.png">
+        <img width="" src="assets/images/iphoneXimag.png">
       </div>
       <div class="bottom-scroll-nav">
         <p>scroll</p>
@@ -112,7 +115,7 @@
           <div class="form-mail-design">
             <label>EMAIL ADDRESS</label>
             <form name="landForm" [formGroup]="landForm">              
-              <input type="email" matInput formControlName="emailaddress">
+              <input type="email" matInput formControlName="emailaddress" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
               <input type="button" [disabled]="landForm.invalid" class="subscriber" (click)="subscribeIt()">
             </form>            
           </div>
