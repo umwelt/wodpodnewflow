@@ -8,7 +8,7 @@ import { environment } from 'environments/environment';
 import {MatDialog} from '@angular/material';
 import { DialogerComponent } from "./dialoger/dialoger.component";
 import { AngularFirestore } from 'angularfire2/firestore';
-
+declare var $: any;
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
@@ -53,6 +53,7 @@ export class LandingpageComponent implements OnInit {
     // this.target=el;
     // this.target.nativeElement.scrollIntoView();
     // this.target.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    // console.log('calling');
     el.scrollIntoView();
   }
   scrollable() {
@@ -74,6 +75,7 @@ export class LandingpageComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogerComponent, {
       width: '700px',
     });
+    this.landForm.controls['emailaddress'].patchValue('');
   }
 
 }
