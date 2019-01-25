@@ -132,7 +132,8 @@
                 float: right;
                 width: 50%;
                 margin: 50px 0 0 0;
-                padding: 0px 0px 0 0px;                
+                padding: 0px 0px 0 0px;
+                z-index: 99;
                 @include media-breakpoint('xs') {
                     display: none;                    
                 }            
@@ -679,7 +680,7 @@
                     width: 33.33%;
                     padding: 0px;
                     display: inline-block;
-                    vertical-align: top;
+                    vertical-align: center;
                     @include media-breakpoint('xs') {
                         width: 100%;
                         margin-bottom: 60px;
@@ -864,7 +865,8 @@
                     width: auto;
                     text-align: left;
                     @include media-breakpoint('lt-md') {
-                        // display: none;
+                        width: 100%;
+                        text-align: center;
                     } 
                     @include media-breakpoint('xs') {
                         // display: none;
@@ -888,6 +890,9 @@
                         color: rgba($color: #ffffff, $alpha: 0.8);
                         vertical-align: middle;
                         max-width: 200px;
+                        @include media-breakpoint('lt-md') {
+                            margin: 0px 0 0 10px;
+                        } 
                     }
                 }                
                 .right-footer {
