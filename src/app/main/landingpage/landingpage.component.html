@@ -9,8 +9,8 @@
         <img width="" src="assets/images/Sopra3x.png">
       </div>
       <div class="left-text">
-        <h1>TEST<br/>THE FITNESS<br/>CHALLENGES<br/>APP</h1>
-        <p>We are about to launch WODPOD, the only fitness app that keeps you constantly motivated through competition.
+        <h1>TEST<br/>THE FITNESS<br/>CHALLENGE<br/>APP</h1>
+        <p>We are about to launch WodPod, the only fitness app that keeps you constantly motivated through competition.
             You can track performances and challenge yourself or friends on a huge number of fitness programs. Do you wanna try it?</p>
         <a class="hide-slot" (click)="scrolldown(target)">Request code</a>
       </div>
@@ -64,7 +64,7 @@
         </div>  
         <div class="middle-three-box">
           <div class="block">
-              <img width="" src="assets/images/icon-01.png">
+              <img width="" src="assets/images/t_badge.png">
               <h4>1 EXCLUSIVE<br>TESTER BADGE</h4>
           </div>
           <div class="block middle">
@@ -72,7 +72,7 @@
               <h4>WODPOD COINS<br>to buy more fitness<br>programs</h4>
             </div>
           <div class="block">
-              <img width="" src="assets/images/icon-03.png">
+              <img width="180" src="assets/images/icon-03.png">
               <h4>A place in our<br>wall of fame</h4>
           </div>
         </div>
@@ -119,18 +119,15 @@
           <h3>REQUEST YOUR INVITATION CODE</h3>
           <p>As soon as the WodPod iOS app will be live, we’ll send you an email containing the invitation code. In order to do that please provide us with your best email, we’ll be reaching out soon.</p>
           <div class="form-mail-design">
-            <label>EMAIL ADDRESS*</label>
+            <label>EMAIL ADDRESS</label>
             <form name="landForm" [formGroup]="landForm">              
               <input type="email" matInput formControlName="emailaddress" placeholder="Your email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
               <input type="button" [disabled]="landForm.invalid" class="subscriber" (click)="subscribeIt()">
             </form>            
           </div>
-           <!-- <small> We use MailChimp as our marketing automation platform. By submitting your email address, you acknowledge that the information you provide will be transferred to MailChimp for processing in accordance with their
+           <small> We use MailChimp as our marketing automation platform. By submitting your email address, you acknowledge that the information you provide will be transferred to MailChimp for processing in accordance with their
                <a href="https://mailchimp.com/legal/privacy/" target="_parent">Privacy Policy </a> and
-               <a href="https://mailchimp.com/legal/terms/" target="_parent"> Terms </a></small> -->
-               <small>
-                 By submitting your mail,you are subscribing to our newsletter according to GDPR.
-               </small>
+               <a href="https://mailchimp.com/legal/terms/" target="_parent"> Terms </a></small>
        </div> 
     </div>
     <!-------Form Section Code------->
