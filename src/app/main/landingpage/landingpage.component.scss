@@ -864,10 +864,10 @@
                     width: auto;
                     text-align: left;
                     @include media-breakpoint('lt-md') {
-                        display: none;
+                        // display: none;
                     } 
                     @include media-breakpoint('xs') {
-                        display: none;
+                        // display: none;
                     } 
                     img {
                         display: inline-block;  

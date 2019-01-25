@@ -62,7 +62,7 @@ export class WodsComponent implements OnInit {
     this.form.controls['movements_description'].value.forEach(element => {
       if(element.name.display_name){
         this.moves.push({ name: element.name.display_name, reps: element.reps });
-        this.sets.push(element.name);
+        this.sets.push({set:element.name,reps:element.reps});
       }
     });
     // this.form.controls['movements_description'].patchValue(this.moves);
@@ -91,7 +91,7 @@ export class WodsComponent implements OnInit {
       gotData.sets.forEach((ele, idx) => {
         if (idx > 0)
           this.addItems();
-        temp.push({ name: ele, reps: gotData.info.movements_description[idx].reps });
+        temp.push({ name: ele.set, reps: gotData.info.movements_description[idx].reps });
       });
       this.form.controls['movements_description'].patchValue(temp);
     });
