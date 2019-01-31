@@ -32,6 +32,10 @@ export class ProgramsDataSource extends DataSource<ProgramsItem> {
   data: ProgramsItem[];
   constructor(private paginator: MatPaginator, private sort: MatSort, private af: AngularFirestore) {
     super();
+    if(localStorage.getItem('filledData'))
+    localStorage.removeItem('filledData');
+    if(localStorage.getItem('woder'))
+    localStorage.removeItem('woder');
     var xss = this.af.collection('/programs_bank').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as ProgramsItem;

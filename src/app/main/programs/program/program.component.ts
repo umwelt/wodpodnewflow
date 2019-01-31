@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { AngularFirestore } from "angularfire2/firestore";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray,FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { map, finalize } from 'rxjs/operators';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
@@ -17,13 +17,13 @@ import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference 
 })
 export class ProgramComponent implements OnInit {
   uploadTask: AngularFireUploadTask;
-  form: FormGroup; Modelref; _id;imgsrc;wods;
-  constructor(private firebase: AngularFirestore,private Fstorage:AngularFireStorage, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router,public dialog: MatDialog) { }
+  form: FormGroup; Modelref; _id; imgsrc; wods;
+  constructor(private firebase: AngularFirestore, private Fstorage: AngularFireStorage, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router, public dialog: MatDialog) { }
   authors; equipments; woddata; types = ['time', 'reps', 'distance']; tiers = ['basic', 'advanced', 'super'];
   levels = ['beginner', 'advanced', 'intermediate']; modes = ['ghost', 'phantom', 'beast', 'normal', 'advanced'];
-  
+
   ngOnInit() {
-    this.getWods();
+    // this.getWods();
     this.getAuthors();
     this.getEquipments();
     if (this.activatedRoute.snapshot.paramMap.get('id')) {
@@ -35,8 +35,8 @@ export class ProgramComponent implements OnInit {
       detail: ['', Validators.required],
       level: ['', Validators.required],
       type: ['', Validators.required],
-      // wods: [[], Validators.required],
-      wods:this._formBuilder.array([this.createItems()]),
+      wods: [[], Validators.required],
+      // wods: this._formBuilder.array([this.createItems()]),
       active: [false],
       mode: ['', Validators.required],
       trainer_tips: this._formBuilder.group({
@@ -58,9 +58,12 @@ export class ProgramComponent implements OnInit {
       }),
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
     });
-    if(localStorage.getItem('filledData')){
-      let x=JSON.parse(localStorage.getItem('filledData'));
+    if (localStorage.getItem('filledData')) {
+      let x = JSON.parse(localStorage.getItem('filledData'));
       this.form.patchValue(x);
+      this.woddata = JSON.parse(localStorage.getItem('woder'));
+      this.form.controls['wods_inside'].patchValue(this.woddata.length);
+      this.form.controls['wods'].patchValue(this.woddata);
     }
     // this.form.controls['wods_inside'].disable();
   }
@@ -80,7 +83,7 @@ export class ProgramComponent implements OnInit {
   onChange(rowdata) {
     this.wods = [];
     this.form.controls['wods'].value.forEach(element => {
-      this.wods.push({ name: element});
+      this.wods.push({ name: element });
     });
     this.form.controls['wods_inside'].patchValue(this.wods.length);
   }
@@ -98,9 +101,11 @@ export class ProgramComponent implements OnInit {
   getWods() {
     var wodsdata = this.firebase.collection('wods_bank').snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data();
+        const data = <any>a.payload.doc.data();
         const id = a.payload.doc.id;
-        return { id, ...data };
+        // if (data.fromProgram == true) {
+          return { id, ...data };
+        // }
       })));
     wodsdata.subscribe(Eresult => {
       this.woddata = Eresult;
@@ -134,27 +139,33 @@ export class ProgramComponent implements OnInit {
     this.Modelref.get().subscribe(res => {
       let gotData = res.data();
       this.form.patchValue(gotData);
-      if(gotData.released.seconds){
-        this.form.controls['released'].patchValue(new Date(gotData.released.seconds*1000));
+      if (gotData.released.seconds) {
+        this.form.controls['released'].patchValue(new Date(gotData.released.seconds * 1000));
       }
-      else{
+      else {
         this.form.controls['released'].patchValue(new Date(gotData.released));
       }
-      this.imgsrc=gotData.images;
-      gotData.wods.forEach((ele, idx) => {
-        if(idx>0)
-        this.addItems();
-      });
-      this.form.controls['wods'].patchValue(gotData.wods);
+      this.imgsrc = gotData.images;
+      // gotData.wods.forEach((ele, idx) => {
+      //   if (idx > 0)
+      //     this.addItems();
+      // });
+      // this.form.controls['wods'].patchValue(gotData.wods);
+      if(!localStorage.getItem('mover')){
+        this.woddata = gotData.wods;
+        localStorage.setItem('woder', JSON.stringify(gotData.wods));
+      }else{
+        this.form.controls['wods'].patchValue(this.woddata);
+        localStorage.removeItem('woder');
+      }
     });
   }
   updateProgram() {
-    debugger;
     this.Modelref.update(this.form.value);
   }
   pushFile(event) {
-    let filePath='/wods_programs/'+event.target.files[0].name;
-    this.uploadTask= this.Fstorage.upload(filePath, event.target.files[0]);    
+    let filePath = '/wods_programs/' + event.target.files[0].name;
+    this.uploadTask = this.Fstorage.upload(filePath, event.target.files[0]);
     const fileRef = this.Fstorage.ref(filePath);
     this.uploadTask.snapshotChanges().pipe(
       finalize(() => {
@@ -166,25 +177,34 @@ export class ProgramComponent implements OnInit {
       })
     ).subscribe();
   }
-  popFile(item){
-    this.imgsrc='';
+  popFile(item) {
+    this.imgsrc = '';
     this.form.controls['images'].patchValue(this.imgsrc);
     return this.Fstorage.storage.refFromURL(item).delete();
   }
-  addWod(){
-    localStorage.setItem('addwoder','true');
-    localStorage.setItem('filledData',JSON.stringify(this.form.value));
+  addWod() {
+    localStorage.setItem('addwoder', 'true');
+    localStorage.setItem('filledData', JSON.stringify(this.form.value));
+    if(this._id){
+      localStorage.setItem('mover', this._id);
+    }
     this.route.navigate(['administration/wods/wod']);
   }
   saveProgram() {
-    if(!localStorage.getItem('addwoder') && this.form.value.released._d){
+    if (!localStorage.getItem('addwoder') && this.form.value.released._d) {
       this.form.controls.released.patchValue(this.form.value.released._d);
     }
-    else{
+    else {
       this.form.controls.released.patchValue(this.form.value.released);
     }
+    debugger
     localStorage.removeItem('addwoder');
     localStorage.removeItem('filledData');
+    localStorage.removeItem('woder');
+    if(localStorage.getItem('mover')){
+      this._id=localStorage.getItem('mover');
+      localStorage.removeItem('mover');
+    }
     if (!this._id) {
       this.addProgram();
     }

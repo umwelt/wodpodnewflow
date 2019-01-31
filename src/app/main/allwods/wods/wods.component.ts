@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class WodsComponent implements OnInit {
 
-  form: FormGroup; Modelref; _id; movements; sets; moves;
+  form: FormGroup; Modelref; _id; movements; sets; moves; woderValue = false;
   typedata = ['for_time', 'for_reps', 'for_distance'];
   categorydata = ['beginner', 'advanced', 'intermediate'];
   constructor(private firebase: AngularFirestore, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router) { }
@@ -41,6 +41,9 @@ export class WodsComponent implements OnInit {
       intensity: [0, [Validators.min(1)]],
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
     });
+    if (localStorage.getItem('addwoder')) {
+      this.woderValue = true;
+    }
   }
   createItems(): FormGroup {
     return this._formBuilder.group({
@@ -60,21 +63,39 @@ export class WodsComponent implements OnInit {
     this.sets = [];
     this.moves = [];
     this.form.controls['movements_description'].value.forEach(element => {
-      if(element.name.display_name){
+      if (element.name.display_name) {
         this.moves.push({ name: element.name.display_name, reps: element.reps });
-        this.sets.push({set:element.name,reps:element.reps});
+        this.sets.push({ set: element.name, reps: element.reps });
       }
     });
     // this.form.controls['movements_description'].patchValue(this.moves);
   }
   addWods() {
+    debugger
     this.onChange('temp');
     this.form.controls['movements_description'].patchValue(this.moves);
     var datapasser = {
       "info": this.form.value,
+      // "fromProgram": this.woderValue,
       "sets": this.sets
     }
-    this.firebase.collection('wods_bank').add(datapasser);
+    if (this.woderValue) {
+      if (localStorage.getItem('woder')) {
+        var accessor = [];
+        var tempWoder = JSON.parse(localStorage.getItem('woder'));
+        accessor = tempWoder;
+        accessor.push(datapasser);
+        localStorage.setItem('woder', JSON.stringify(accessor));
+      }
+      else {
+        var accessor = [];
+        accessor.push(datapasser);
+        localStorage.setItem('woder', JSON.stringify(accessor));
+      }
+    }
+    else {
+      this.firebase.collection('wods_bank').add(datapasser);
+    }
   }
   compareFn(v1, v2): boolean {
     if (v1.display_name && v2.display_name) {
@@ -101,6 +122,7 @@ export class WodsComponent implements OnInit {
     this.form.controls['movements_description'].patchValue(this.moves);
     var datapasser = {
       "info": this.form.value,
+      // "fromProgram": this.woderValue,
       "sets": this.sets
     }
     this.Modelref.update(datapasser);
@@ -124,7 +146,14 @@ export class WodsComponent implements OnInit {
       this.updateWods();
     }
     if (localStorage.getItem('filledData')) {
-      this.route.navigate(['/administration/programs/program']);
+      localStorage.removeItem('addwoder');
+      if (localStorage.getItem('mover')) {
+        let idx = localStorage.getItem('mover');
+        this.route.navigate(['/administration/programs/program/' + idx]);
+      }
+      else {
+        this.route.navigate(['/administration/programs/program']);
+      }
     } else {
       this.route.navigate(['/administration/wods/listing']);
     }

@@ -152,25 +152,28 @@
 
         <!-- dynamic wods -->
 
-        <div formArrayName="wods" *ngFor="let wods of form.get('wods')['controls']; let i = index" class="form-group">
-          <div [formGroupName]="i">
+        <!-- <div formArrayName="wods" *ngFor="let wods of form.get('wods')['controls']; let i = index" class="form-group">
+          <div [formGroupName]="i"> -->
             <div class="form-group" class="row cols-md-12">
               <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                <mat-form-field appearance="outline" fxFlex="90">
+                <!-- <mat-form-field appearance="outline" fxFlex="90">
                   <mat-label>Wods</mat-label>
                   <mat-select (selectionChange)="onChange($event.value)" placeholder="Wod" formControlName="wod"
                     [compareWith]="compareFn1">
                     <mat-option *ngFor="let wo of woddata" [value]="wo">{{wo.info.name}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
+                  </mat-select> -->
+                  <div *ngFor="let wo of woddata">
+                    <span *ngIf="wo?.info">{{wo.info.name}}</span>
+                  </div>
+                <!-- </mat-form-field> -->
               </div>
-              <!-- <mat-icon class="deleteBtn" *ngIf="i==0" title="Delete"></mat-icon> -->
-              <a (click)="addWod()" *ngIf="i==0" mat-raised-button color="accent" style="height:40px;">Add Wod</a>
-              <mat-icon class="deleteBtn" *ngIf="i>0" title="Delete" (click)="removeItems(i)">remove_circle</mat-icon>
+              <!-- <mat-icon class="deleteBtn" *ngIf="i==0" title="Delete"></mat-icon> *ngIf="i==0"-->
+              <a (click)="addWod()" mat-raised-button color="accent" style="height:40px;">Add Wod</a>
+              <!-- <mat-icon class="deleteBtn" *ngIf="i>0" title="Delete" (click)="removeItems(i)">remove_circle</mat-icon> -->
             </div>
-          </div>
-        </div>
-        <a mat-mini-fab color="primary" class="editBtn" style="font-size:large;margin-bottom: 2%;" (click)="addItems()">+</a>
+          <!-- </div>
+        </div> -->
+        <!-- <a mat-mini-fab color="primary" class="editBtn" style="font-size:large;margin-bottom: 2%;" (click)="addItems()">+</a> -->
         <!-- dynamic wods -->
         <div class="label" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="1 0 auto">
           <span> Active : </span>

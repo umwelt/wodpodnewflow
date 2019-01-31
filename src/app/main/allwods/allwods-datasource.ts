@@ -8,11 +8,11 @@ import { element } from 'protractor';
 
 // TODO: Replace this with your own data model type
 export interface allWodsItem {
-  info:{
-    name:string;
-    movements_description:string;
-    type:string;
-    rounds:number;
+  info: {
+    name: string;
+    movements_description: string;
+    type: string;
+    rounds: number;
   };
   id: number;
 }
@@ -26,14 +26,20 @@ export class allWodsDataSource extends DataSource<allWodsItem> {
   data: allWodsItem[];
   constructor(private paginator: MatPaginator, private sort: MatSort, private af: AngularFirestore) {
     super();
-    var xss = this.af.collection('/wods_bank').snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as allWodsItem;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      })));
-    var zz = xss.subscribe(check => {
-      this.data = check;      
+    var xss = this.af.collection('/wods_bank').snapshotChanges()
+      .pipe(
+        map(actions => actions.map(a => {
+          const data: any = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })));
+    xss.subscribe(check => {
+      check = check.filter(a => {
+        // if (a.fromProgram == false) {
+          return a;
+        // }
+      });
+      this.data = check;
     })
   }
 
@@ -53,7 +59,6 @@ export class allWodsDataSource extends DataSource<allWodsItem> {
       ];
       // Set the paginator's length
       this.paginator.length = this.data.length;
-
       return merge(...dataMutations).pipe(map(() => {
         return this.getPagedData(this.getSortedData([...this.data]));
       }));
