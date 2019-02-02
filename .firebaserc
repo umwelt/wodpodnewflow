@@ -3,7 +3,8 @@
     "default": "wodpod-d3fc2",
     "prod": "wodpod-prod",
     "cProduction": "wodpod-production",
-    "dev": "wodpod-d3fc2"
+    "dev": "wodpod-d3fc2",
+    "devEnv": "wodpod-f2086"
   },
   "targets": {
     "wodpod-d3fc2": {
