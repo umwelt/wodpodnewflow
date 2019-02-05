@@ -8,12 +8,13 @@ import { element } from 'protractor';
 
 // TODO: Replace this with your own data model type
 export interface allWodsItem {
-  info:{
-    name:string;
-    movements_description:string;
-    type:string;
-    rounds:number;
+  info: {
+    name: string;
+    movements_description: string;
+    type: string;
+    rounds: number;
   };
+  fromProgram: any;
   id: number;
 }
 
@@ -23,17 +24,29 @@ export interface allWodsItem {
  * (including sorting, pagination, and filtering).
  */
 export class allWodsDataSource extends DataSource<allWodsItem> {
-  data: allWodsItem[];
+  data: allWodsItem[];prodata;
   constructor(private paginator: MatPaginator, private sort: MatSort, private af: AngularFirestore) {
     super();
-    var xss = this.af.collection('/wods_bank').snapshotChanges().pipe(
+    var xpro = this.af.collection('/programs_bank').snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as allWodsItem;
+        const data = a.payload.doc.data();
         const id = a.payload.doc.id;
         return { id, ...data };
       })));
-    var zz = xss.subscribe(check => {
-      this.data = check;      
+    xpro.subscribe(pcheck => {
+      this.prodata = pcheck;
+      console.log(pcheck);    
+      var xss = this.af.collection('/wods_bank').snapshotChanges().pipe(
+        map(actions => actions.map(a => {
+          const data = a.payload.doc.data() as allWodsItem;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })));
+      var zz = xss.subscribe(check => {
+        this.data = check;
+        console.log(check);    
+
+      });
     })
   }
 
@@ -89,6 +102,7 @@ export class allWodsDataSource extends DataSource<allWodsItem> {
       switch (this.sort.active) {
         case 'rounds': return compare(a.info.rounds, b.info.rounds, isAsc);
         case 'type': return compare(a.info.type, b.info.type, isAsc);
+        case 'fromProgram': return compare(+a.fromProgram, +b.fromProgram, isAsc);
         case 'movements_description': return compare(a.info.movements_description, b.info.movements_description, isAsc);
         case 'name': return compare(a.info.name, b.info.name, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);

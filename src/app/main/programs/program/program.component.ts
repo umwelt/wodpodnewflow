@@ -152,12 +152,12 @@ export class ProgramComponent implements OnInit {
       }
       this.imgsrc = gotData.images;
       this.gotwoddata = gotData.wods;
-      if(!localStorage.getItem('editmode')){
+      if (!localStorage.getItem('editmode')) {
         this.woddata = this.allwoddata.filter((ddr) => gotData.wods.indexOf(ddr.id) >= 0);
         this.form.controls['wods_inside'].patchValue(this.woddata.length);
         this.form.controls['wods'].patchValue(this.woddata);
-      }else{
-        var temp=JSON.parse(localStorage.getItem('addedWods'));
+      } else {
+        var temp = JSON.parse(localStorage.getItem('addedWods'));
         this.form.controls['wods_inside'].patchValue(temp.length);
         this.form.controls['wods'].patchValue(temp);
       }
@@ -169,7 +169,21 @@ export class ProgramComponent implements OnInit {
     });
   }
   updateProgram() {
+    console.log(this.gotwoddata);
+    // console.log(this.form.value);
+    console.log("Before");
+
+    if (!localStorage.getItem('editmode')) {
+      this.form.controls['wods'].patchValue(this.gotwoddata);
+      this.form.controls['wods_inside'].patchValue(this.gotwoddata.length);
+    }
     this.Modelref.update(this.form.value);
+    console.log("After");
+    // console.log(this.form.value);
+    this.gotwoddata.filter((wodId) => {
+      this.firebase.doc(`wods_bank/${wodId}`).update({ fromProgram: this._id });
+      console.log(wodId);
+    });
   }
   pushFile(event) {
     let filePath = '/wods_programs/' + event.target.files[0].name;
@@ -214,10 +228,10 @@ export class ProgramComponent implements OnInit {
     }
     //ahiya update karavano code karvo pdse evu lage
     // this.db.doc(`jobs/${job.id}`).update({name:profile.name});
-    // localStorage.removeItem('addwoder');
-    // localStorage.removeItem('filledData');
-    // localStorage.removeItem('addedWods');
-    localStorage.removeItem('editmode');    
+    localStorage.removeItem('addwoder');
+    localStorage.removeItem('filledData');
+    localStorage.removeItem('addedWods');
+    localStorage.removeItem('editmode');
     this.route.navigate(['/administration/programs/listing']);
     this.toastr.success('Program Saved Successfully!', 'Success!');
   }
