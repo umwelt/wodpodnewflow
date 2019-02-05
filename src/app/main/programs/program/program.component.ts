@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { AngularFirestore } from "angularfire2/firestore";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray,FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { map, finalize } from 'rxjs/operators';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
@@ -17,11 +17,11 @@ import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference 
 })
 export class ProgramComponent implements OnInit {
   uploadTask: AngularFireUploadTask;
-  form: FormGroup; Modelref; _id;imgsrc;wods;
-  constructor(private firebase: AngularFirestore,private Fstorage:AngularFireStorage, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router,public dialog: MatDialog) { }
-  authors; equipments; woddata; types = ['time', 'reps', 'distance']; tiers = ['basic', 'advanced', 'super'];
+  form: FormGroup; Modelref; _id; imgsrc; wods; gotwoddata;
+  constructor(private firebase: AngularFirestore, private Fstorage: AngularFireStorage, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router, public dialog: MatDialog) { }
+  authors; equipments; woddata; allwoddata; types = ['time', 'reps', 'distance']; tiers = ['basic', 'advanced', 'super'];
   levels = ['beginner', 'advanced', 'intermediate']; modes = ['ghost', 'phantom', 'beast', 'normal', 'advanced'];
-  
+
   ngOnInit() {
     this.getWods();
     this.getAuthors();
@@ -35,8 +35,8 @@ export class ProgramComponent implements OnInit {
       detail: ['', Validators.required],
       level: ['', Validators.required],
       type: ['', Validators.required],
-      // wods: [[], Validators.required],
-      wods:this._formBuilder.array([this.createItems()]),
+      wods: [[], Validators.required],
+      // wods:this._formBuilder.array([this.createItems()]),
       active: [false],
       mode: ['', Validators.required],
       trainer_tips: this._formBuilder.group({
@@ -58,8 +58,8 @@ export class ProgramComponent implements OnInit {
       }),
       difficulty: [0, [Validators.min(1), Validators.max(5)]]
     });
-    if(localStorage.getItem('filledData')){
-      let x=JSON.parse(localStorage.getItem('filledData'));
+    if (localStorage.getItem('filledData')) {
+      let x = JSON.parse(localStorage.getItem('filledData'));
       this.form.patchValue(x);
     }
     // this.form.controls['wods_inside'].disable();
@@ -80,7 +80,7 @@ export class ProgramComponent implements OnInit {
   onChange(rowdata) {
     this.wods = [];
     this.form.controls['wods'].value.forEach(element => {
-      this.wods.push({ name: element});
+      this.wods.push({ name: element });
     });
     this.form.controls['wods_inside'].patchValue(this.wods.length);
   }
@@ -103,7 +103,13 @@ export class ProgramComponent implements OnInit {
         return { id, ...data };
       })));
     wodsdata.subscribe(Eresult => {
-      this.woddata = Eresult;
+      this.allwoddata = Eresult;
+      var added = JSON.parse(localStorage.getItem('addedWods'));
+      if (added) {
+        this.woddata = Eresult.filter((ddr) => added.indexOf(ddr.id) >= 0);
+        this.form.controls['wods_inside'].patchValue(added.length);
+        this.form.controls['wods'].patchValue(added);
+      }
     });
   }
   getAuthors() {
@@ -118,7 +124,11 @@ export class ProgramComponent implements OnInit {
     });
   }
   addProgram() {
-    this.firebase.collection('programs_bank').add(this.form.value);
+    var proId = this.firebase.collection('programs_bank').add(this.form.value);
+    proId.then((data) => {
+      console.log(this.wods);
+      debugger;
+    })
   }
   compareFn(v1, v2): boolean {
     if (v1.name && v2.name) {
@@ -134,27 +144,36 @@ export class ProgramComponent implements OnInit {
     this.Modelref.get().subscribe(res => {
       let gotData = res.data();
       this.form.patchValue(gotData);
-      if(gotData.released.seconds){
-        this.form.controls['released'].patchValue(new Date(gotData.released.seconds*1000));
+      if (gotData.released.seconds) {
+        this.form.controls['released'].patchValue(new Date(gotData.released.seconds * 1000));
       }
-      else{
+      else {
         this.form.controls['released'].patchValue(new Date(gotData.released));
       }
-      this.imgsrc=gotData.images;
-      gotData.wods.forEach((ele, idx) => {
-        if(idx>0)
-        this.addItems();
-      });
-      this.form.controls['wods'].patchValue(gotData.wods);
+      this.imgsrc = gotData.images;
+      this.gotwoddata = gotData.wods;
+      if(!localStorage.getItem('editmode')){
+        this.woddata = this.allwoddata.filter((ddr) => gotData.wods.indexOf(ddr.id) >= 0);
+        this.form.controls['wods_inside'].patchValue(this.woddata.length);
+        this.form.controls['wods'].patchValue(this.woddata);
+      }else{
+        var temp=JSON.parse(localStorage.getItem('addedWods'));
+        this.form.controls['wods_inside'].patchValue(temp.length);
+        this.form.controls['wods'].patchValue(temp);
+      }
+      // gotData.wods.forEach((ele, idx) => {
+      //   if(idx>0)
+      //   this.addItems();
+      // });
+      // this.form.controls['wods'].patchValue(gotData.wods);
     });
   }
   updateProgram() {
-    debugger;
     this.Modelref.update(this.form.value);
   }
   pushFile(event) {
-    let filePath='/wods_programs/'+event.target.files[0].name;
-    this.uploadTask= this.Fstorage.upload(filePath, event.target.files[0]);    
+    let filePath = '/wods_programs/' + event.target.files[0].name;
+    this.uploadTask = this.Fstorage.upload(filePath, event.target.files[0]);
     const fileRef = this.Fstorage.ref(filePath);
     this.uploadTask.snapshotChanges().pipe(
       finalize(() => {
@@ -166,32 +185,47 @@ export class ProgramComponent implements OnInit {
       })
     ).subscribe();
   }
-  popFile(item){
-    this.imgsrc='';
+  popFile(item) {
+    this.imgsrc = '';
     this.form.controls['images'].patchValue(this.imgsrc);
     return this.Fstorage.storage.refFromURL(item).delete();
   }
-  addWod(){
-    localStorage.setItem('addwoder','true');
-    localStorage.setItem('filledData',JSON.stringify(this.form.value));
+  addWod() {
+    localStorage.setItem('addwoder', 'true');
+    if (this._id) {
+      localStorage.setItem('editmode', this._id);
+      localStorage.setItem('addedWods', JSON.stringify(this.gotwoddata));
+    }
+    localStorage.setItem('filledData', JSON.stringify(this.form.value));
     this.route.navigate(['administration/wods/wod']);
   }
   saveProgram() {
-    if(!localStorage.getItem('addwoder') && this.form.value.released._d){
+    if (!localStorage.getItem('addwoder') && this.form.value.released._d) {
       this.form.controls.released.patchValue(this.form.value.released._d);
     }
-    else{
+    else {
       this.form.controls.released.patchValue(this.form.value.released);
     }
-    localStorage.removeItem('addwoder');
-    localStorage.removeItem('filledData');
     if (!this._id) {
       this.addProgram();
     }
     else {
       this.updateProgram();
     }
+    //ahiya update karavano code karvo pdse evu lage
+    // this.db.doc(`jobs/${job.id}`).update({name:profile.name});
+    // localStorage.removeItem('addwoder');
+    // localStorage.removeItem('filledData');
+    // localStorage.removeItem('addedWods');
+    localStorage.removeItem('editmode');    
     this.route.navigate(['/administration/programs/listing']);
     this.toastr.success('Program Saved Successfully!', 'Success!');
   }
+  // ngOnDestroy(){
+  //   // Need to check for remove this vals on route changes
+  //   localStorage.removeItem('addwoder');
+  //   localStorage.removeItem('filledData');
+  //   localStorage.removeItem('addedWods');
+  //   alert('ave to che!');
+  // }
 }

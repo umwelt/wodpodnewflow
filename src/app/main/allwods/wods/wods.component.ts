@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class WodsComponent implements OnInit {
 
-  form: FormGroup; Modelref; _id; movements; sets; moves;
+  form: FormGroup; Modelref; _id; movements; sets; moves; addedRow;
   typedata = ['for_time', 'for_reps', 'for_distance'];
   categorydata = ['beginner', 'advanced', 'intermediate'];
   constructor(private firebase: AngularFirestore, private _formBuilder: FormBuilder, public toastr: ToastrService, private activatedRoute: ActivatedRoute, private route: Router) { }
@@ -72,9 +72,10 @@ export class WodsComponent implements OnInit {
     this.form.controls['movements_description'].patchValue(this.moves);
     var datapasser = {
       "info": this.form.value,
+      "fromProgram":"",
       "sets": this.sets
     }
-    this.firebase.collection('wods_bank').add(datapasser);
+    this.addedRow=this.firebase.collection('wods_bank').add(datapasser);
   }
   compareFn(v1, v2): boolean {
     if (v1.display_name && v2.display_name) {
@@ -101,6 +102,7 @@ export class WodsComponent implements OnInit {
     this.form.controls['movements_description'].patchValue(this.moves);
     var datapasser = {
       "info": this.form.value,
+      "fromProgram":"",
       "sets": this.sets
     }
     this.Modelref.update(datapasser);
@@ -124,7 +126,26 @@ export class WodsComponent implements OnInit {
       this.updateWods();
     }
     if (localStorage.getItem('filledData')) {
-      this.route.navigate(['/administration/programs/program']);
+      this.addedRow.then((dt)=>{
+        if(!localStorage.getItem('addedWods')){
+          var x=[];
+          x.push(dt.id);          
+          localStorage.setItem('addedWods',JSON.stringify(x));
+        }
+        else{
+          var x=[];
+          var temper=JSON.parse(localStorage.getItem('addedWods'));
+          x=temper;
+          x.push(dt.id);
+          localStorage.setItem('addedWods',JSON.stringify(x));
+        }
+      })
+      if(localStorage.getItem('editmode')){
+        this.route.navigate(['/administration/programs/program/'+localStorage.getItem('editmode')]);
+      }
+      else{
+        this.route.navigate(['/administration/programs/program']);
+      }
     } else {
       this.route.navigate(['/administration/wods/listing']);
     }
