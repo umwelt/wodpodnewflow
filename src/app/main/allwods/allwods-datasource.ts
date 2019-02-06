@@ -35,7 +35,6 @@ export class allWodsDataSource extends DataSource<allWodsItem> {
       })));
     xpro.subscribe(pcheck => {
       this.prodata = pcheck;
-      console.log(pcheck);    
       var xss = this.af.collection('/wods_bank').snapshotChanges().pipe(
         map(actions => actions.map(a => {
           const data = a.payload.doc.data() as allWodsItem;
@@ -44,8 +43,16 @@ export class allWodsDataSource extends DataSource<allWodsItem> {
         })));
       var zz = xss.subscribe(check => {
         this.data = check;
-        console.log(check);    
-
+        var founder=this.prodata.filter((x)=>{
+          if(check.findIndex(a => {return a.fromProgram==x.id})>=0) return x;
+        });
+        this.data.filter((i,idx)=>{
+          founder.filter((j,jdx)=>{
+            if(i.fromProgram==j.id){
+              this.data[idx].fromProgram=founder[jdx];              
+            }
+          });
+        });
       });
     })
   }

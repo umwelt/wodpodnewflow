@@ -20,7 +20,7 @@ export class allwodsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: allWodsDataSource;
-  displayedColumns = ['id', 'name', 'movements_description','fromProgram', 'type', 'rounds', 'action'];
+  displayedColumns = [ 'name', 'movements_description', 'type', 'rounds', 'fromProgram', 'action'];
   constructor(private firebase: AngularFirestore, private _formBuilder: FormBuilder, public toastr: ToastrService,private route:Router) { }
   ngOnInit() {
     this.dataSource = new allWodsDataSource(this.paginator, this.sort, this.firebase);

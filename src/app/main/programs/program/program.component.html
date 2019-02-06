@@ -160,6 +160,7 @@
                   <mat-label>Wods : </mat-label>
                   <div *ngFor="let wod of woddata;let i=index;">
                     <span>{{wod.info.name}}</span>
+                    <span *ngIf="woddata.length-1 !=i" class="spacing">,</span>
                   </div>
                   <!-- <mat-select (selectionChange)="onChange($event.value)" placeholder="Wod" formControlName="wod"
                     [compareWith]="compareFn1">

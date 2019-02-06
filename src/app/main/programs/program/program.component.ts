@@ -126,8 +126,9 @@ export class ProgramComponent implements OnInit {
   addProgram() {
     var proId = this.firebase.collection('programs_bank').add(this.form.value);
     proId.then((data) => {
-      console.log(this.wods);
-      debugger;
+      this.gotwoddata.filter((wodId) => {
+        this.firebase.doc(`wods_bank/${wodId}`).update({ fromProgram: data.id });
+      });
     })
   }
   compareFn(v1, v2): boolean {
@@ -157,6 +158,7 @@ export class ProgramComponent implements OnInit {
         this.form.controls['wods_inside'].patchValue(this.woddata.length);
         this.form.controls['wods'].patchValue(this.woddata);
       } else {
+        this.getWods();
         var temp = JSON.parse(localStorage.getItem('addedWods'));
         this.form.controls['wods_inside'].patchValue(temp.length);
         this.form.controls['wods'].patchValue(temp);
@@ -169,17 +171,18 @@ export class ProgramComponent implements OnInit {
     });
   }
   updateProgram() {
-    console.log(this.gotwoddata);
-    // console.log(this.form.value);
-    console.log("Before");
-
     if (!localStorage.getItem('editmode')) {
       this.form.controls['wods'].patchValue(this.gotwoddata);
       this.form.controls['wods_inside'].patchValue(this.gotwoddata.length);
+    }else{
+      var temp = JSON.parse(localStorage.getItem('addedWods'));
+      this.form.controls['wods_inside'].patchValue(temp.length);
+      this.gotwoddata=temp;
+      this.form.controls['wods'].patchValue(temp);
     }
     this.Modelref.update(this.form.value);
-    console.log("After");
-    // console.log(this.form.value);
+    console.log('>==>');
+    console.log(this.gotwoddata);
     this.gotwoddata.filter((wodId) => {
       this.firebase.doc(`wods_bank/${wodId}`).update({ fromProgram: this._id });
       console.log(wodId);
