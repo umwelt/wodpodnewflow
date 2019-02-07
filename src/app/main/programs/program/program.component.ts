@@ -126,8 +126,8 @@ export class ProgramComponent implements OnInit {
   addProgram() {
     var proId = this.firebase.collection('programs_bank').add(this.form.value);
     proId.then((data) => {
-      this.gotwoddata.filter((wodId) => {
-        this.firebase.doc(`wods_bank/${wodId}`).update({ fromProgram: data.id });
+      this.woddata.filter((wod) => {
+        this.firebase.doc(`wods_bank/${wod.id}`).update({ fromProgram: data.id });
       });
     })
   }
@@ -163,29 +163,21 @@ export class ProgramComponent implements OnInit {
         this.form.controls['wods_inside'].patchValue(temp.length);
         this.form.controls['wods'].patchValue(temp);
       }
-      // gotData.wods.forEach((ele, idx) => {
-      //   if(idx>0)
-      //   this.addItems();
-      // });
-      // this.form.controls['wods'].patchValue(gotData.wods);
     });
   }
   updateProgram() {
     if (!localStorage.getItem('editmode')) {
       this.form.controls['wods'].patchValue(this.gotwoddata);
       this.form.controls['wods_inside'].patchValue(this.gotwoddata.length);
-    }else{
+    } else {
       var temp = JSON.parse(localStorage.getItem('addedWods'));
       this.form.controls['wods_inside'].patchValue(temp.length);
-      this.gotwoddata=temp;
+      this.gotwoddata = temp;
       this.form.controls['wods'].patchValue(temp);
     }
     this.Modelref.update(this.form.value);
-    console.log('>==>');
-    console.log(this.gotwoddata);
     this.gotwoddata.filter((wodId) => {
       this.firebase.doc(`wods_bank/${wodId}`).update({ fromProgram: this._id });
-      console.log(wodId);
     });
   }
   pushFile(event) {
@@ -229,8 +221,6 @@ export class ProgramComponent implements OnInit {
     else {
       this.updateProgram();
     }
-    //ahiya update karavano code karvo pdse evu lage
-    // this.db.doc(`jobs/${job.id}`).update({name:profile.name});
     localStorage.removeItem('addwoder');
     localStorage.removeItem('filledData');
     localStorage.removeItem('addedWods');
@@ -238,11 +228,4 @@ export class ProgramComponent implements OnInit {
     this.route.navigate(['/administration/programs/listing']);
     this.toastr.success('Program Saved Successfully!', 'Success!');
   }
-  // ngOnDestroy(){
-  //   // Need to check for remove this vals on route changes
-  //   localStorage.removeItem('addwoder');
-  //   localStorage.removeItem('filledData');
-  //   localStorage.removeItem('addedWods');
-  //   alert('ave to che!');
-  // }
 }

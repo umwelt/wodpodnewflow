@@ -40,6 +40,12 @@ export class allwodsComponent implements OnInit {
       if (result.value) {
         this.firebase.doc(`wods_bank/${row.id}`).delete();
         this.dataSource = new allWodsDataSource(this.paginator, this.sort, this.firebase);
+        var tempwods=row.fromProgram.wods;
+        var updatedWods=tempwods.filter((item)=>{
+          return item!=row.id;
+        });
+        var updatedwodsInside=updatedWods.length;
+        this.firebase.doc(`programs_bank/${row.fromProgram.id}`).update({ wods: updatedWods,wods_inside:updatedwodsInside });
         this.toastr.success('Wod Removed Successfully!', 'Success!');
       } 
     })

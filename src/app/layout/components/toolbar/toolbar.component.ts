@@ -122,6 +122,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
     }
     logout(){
         localStorage.removeItem('fireToken');
+        localStorage.clear();
         this.route.navigate(['/pages/auth/login']);
     }
     /**

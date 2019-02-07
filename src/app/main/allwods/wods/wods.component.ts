@@ -60,9 +60,9 @@ export class WodsComponent implements OnInit {
     this.sets = [];
     this.moves = [];
     this.form.controls['movements_description'].value.forEach(element => {
-      if(element.name.display_name){
+      if (element.name.display_name) {
         this.moves.push({ name: element.name.display_name, reps: element.reps });
-        this.sets.push({set:element.name,reps:element.reps});
+        this.sets.push({ set: element.name, reps: element.reps });
       }
     });
     // this.form.controls['movements_description'].patchValue(this.moves);
@@ -72,10 +72,10 @@ export class WodsComponent implements OnInit {
     this.form.controls['movements_description'].patchValue(this.moves);
     var datapasser = {
       "info": this.form.value,
-      "fromProgram":"",
+      "fromProgram": "",
       "sets": this.sets
     }
-    this.addedRow=this.firebase.collection('wods_bank').add(datapasser);
+    this.addedRow = this.firebase.collection('wods_bank').add(datapasser);
   }
   compareFn(v1, v2): boolean {
     if (v1.display_name && v2.display_name) {
@@ -102,7 +102,7 @@ export class WodsComponent implements OnInit {
     this.form.controls['movements_description'].patchValue(this.moves);
     var datapasser = {
       "info": this.form.value,
-      "fromProgram":"",
+      "fromProgram": "",
       "sets": this.sets
     }
     this.Modelref.update(datapasser);
@@ -126,25 +126,29 @@ export class WodsComponent implements OnInit {
       this.updateWods();
     }
     if (localStorage.getItem('filledData')) {
-      this.addedRow.then((dt)=>{
-        if(!localStorage.getItem('addedWods')){
-          var x=[];
-          x.push(dt.id);          
-          localStorage.setItem('addedWods',JSON.stringify(x));
-        }
-        else{
-          var x=[];
-          var temper=JSON.parse(localStorage.getItem('addedWods'));
-          x=temper;
+      this.addedRow.then((dt) => {
+        if (!localStorage.getItem('addedWods')) {
+          var x = [];
           x.push(dt.id);
-          localStorage.setItem('addedWods',JSON.stringify(x));
+          localStorage.setItem('addedWods', JSON.stringify(x));
+        }
+        else {
+          var x = [];
+          var temper = JSON.parse(localStorage.getItem('addedWods'));
+          x = temper;
+          x.push(dt.id);
+          localStorage.setItem('addedWods', JSON.stringify(x));
         }
       })
-      if(localStorage.getItem('editmode')){
-        this.route.navigate(['/administration/programs/program/'+localStorage.getItem('editmode')]);
+      if (localStorage.getItem('editmode')) {
+        setTimeout(() => {
+          this.route.navigate(['/administration/programs/program/' + localStorage.getItem('editmode')]);
+        }, 1000);
       }
-      else{
-        this.route.navigate(['/administration/programs/program']);
+      else {
+        setTimeout(() => {
+          this.route.navigate(['/administration/programs/program']);
+        }, 1000);
       }
     } else {
       this.route.navigate(['/administration/wods/listing']);

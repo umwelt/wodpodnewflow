@@ -50,10 +50,6 @@ export class LandingpageComponent implements OnInit {
     window.removeEventListener('scroll', this.scrollable, true);
   }
   scrolldown(el) {
-    // this.target=el;
-    // this.target.nativeElement.scrollIntoView();
-    // this.target.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
-    // console.log('calling');
     el.scrollIntoView();
   }
   scrollable() {
